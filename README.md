@@ -1,10 +1,10 @@
-# 🌸 Arisan PKK KarangKedawung
+#  Arisan PKK KarangKedawung
 
 Aplikasi Sistem Manajemen Arisan Digital berbasis **Laravel** yang ramah pengguna, mudah dipahami, elegan, dan transparan, dirancang khusus untuk memenuhi kebutuhan **Ibu-Ibu PKK Desa KarangKedawung**.
 
 ---
 
-## ✨ Fitur Utama
+##  Fitur Utama
 
 ### 1. Manajemen Kelompok Arisan
 - Pembuatan kelompok arisan: nama, nominal iuran bulanan/mingguan, kuota anggota, tanggal mulai.
@@ -40,7 +40,7 @@ Aplikasi Sistem Manajemen Arisan Digital berbasis **Laravel** yang ramah penggun
 - Pencatatan penyerahan uang/pencairan dana ke pemenang beserta bukti serah terima foto/kwitansi.
 
 ### 6. Notifikasi & Pengingat WhatsApp
-- Template pesan WhatsApp yang sopan, santun, ramah ibu-ibu dengan emotikon (🌸🌹✨).
+- Template pesan WhatsApp yang sopan, santun, ramah ibu-ibu dengan emotikon.
 - Tautan langsung `wa.me` siap klik:
   - Pengingat jatuh tempo iuran (H-3, H-1, Hari H).
   - Pemberitahuan tagihan telat beserta rincian denda.
@@ -61,7 +61,7 @@ Aplikasi Sistem Manajemen Arisan Digital berbasis **Laravel** yang ramah penggun
 
 ---
 
-## 🔑 Akun Uji Coba (Demo Accounts)
+##  Akun Uji Coba (Demo Accounts)
 
 Aplikasi telah dilengkapi dengan tombol login cepat 1-klik pada halaman masuk:
 
@@ -73,7 +73,7 @@ Aplikasi telah dilengkapi dengan tombol login cepat 1-klik pada halaman masuk:
 
 ---
 
-## 🚀 Cara Menjalankan Aplikasi
+## Cara Menjalankan Aplikasi
 
 1. Clone repositori:
    ```bash
@@ -102,4 +102,4 @@ Aplikasi telah dilengkapi dengan tombol login cepat 1-klik pada halaman masuk:
 
 ---
 
-Dibuat dengan ❤️ untuk **Pemberdayaan Kesejahteraan Keluarga (PKK) Desa KarangKedawung**.
+Dibuat untuk **Pemberdayaan Kesejahteraan Keluarga (PKK) Desa KarangKedawung**.
