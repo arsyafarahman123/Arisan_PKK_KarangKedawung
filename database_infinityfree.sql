@@ -1,387 +1,341 @@
--- MySQL Database Dump for Arisan PKK KarangKedawung
--- Target Host: sql110.infinityfree.com
--- Target Domain: arisanku.rf.gd
--- Generated: 2026-10-04 13:08:29
+-- =============================================
+-- Arisan PKK Karang Kedawung - Database Schema
+-- Generated from Laravel migrations
+-- For MySQL (InfinityFree)
+-- =============================================
 
-SET FOREIGN_KEY_CHECKS=0;
-SET SQL_MODE = 'NO_AUTO_VALUE_ON_ZERO';
-START TRANSACTION;
-SET time_zone = '+07:00';
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+07:00";
+SET FOREIGN_KEY_CHECKS = 0;
 
+-- -----------------------------------------------
+-- Drop existing tables (if re-importing)
+-- -----------------------------------------------
+DROP TABLE IF EXISTS `activity_logs`;
+DROP TABLE IF EXISTS `notification_logs`;
+DROP TABLE IF EXISTS `payments`;
+DROP TABLE IF EXISTS `group_members`;
+DROP TABLE IF EXISTS `arisan_rounds`;
+DROP TABLE IF EXISTS `arisan_groups`;
+DROP TABLE IF EXISTS `failed_jobs`;
+DROP TABLE IF EXISTS `job_batches`;
+DROP TABLE IF EXISTS `jobs`;
+DROP TABLE IF EXISTS `cache_locks`;
+DROP TABLE IF EXISTS `cache`;
+DROP TABLE IF EXISTS `sessions`;
+DROP TABLE IF EXISTS `password_reset_tokens`;
 DROP TABLE IF EXISTS `users`;
-CREATE TABLE IF NOT EXISTS `users` (
-  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) NOT NULL,
-  `email` varchar(255) DEFAULT NULL,
-  `phone` varchar(255) NOT NULL,
-  `role` enum('admin','member') NOT NULL DEFAULT 'member',
-  `address` text DEFAULT NULL,
-  `is_active` tinyint(1) NOT NULL DEFAULT 1,
-  `email_verified_at` timestamp NULL DEFAULT NULL,
-  `password` varchar(255) NOT NULL,
-  `remember_token` varchar(100) DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
+DROP TABLE IF EXISTS `migrations`;
+
+-- -----------------------------------------------
+-- Table: users
+-- -----------------------------------------------
+CREATE TABLE `users` (
+  `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(255) NOT NULL,
+  `email` VARCHAR(255) NULL DEFAULT NULL,
+  `phone` VARCHAR(255) NOT NULL,
+  `role` VARCHAR(255) NOT NULL DEFAULT 'member',
+  `address` TEXT NULL DEFAULT NULL,
+  `avatar` VARCHAR(255) NULL DEFAULT NULL,
+  `is_active` TINYINT(1) NOT NULL DEFAULT 1,
+  `email_verified_at` TIMESTAMP NULL DEFAULT NULL,
+  `password` VARCHAR(255) NOT NULL,
+  `remember_token` VARCHAR(100) NULL DEFAULT NULL,
+  `created_at` TIMESTAMP NULL DEFAULT NULL,
+  `updated_at` TIMESTAMP NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `users_phone_unique` (`phone`),
-  UNIQUE KEY `users_email_unique` (`email`)
+  UNIQUE KEY `users_email_unique` (`email`),
+  UNIQUE KEY `users_phone_unique` (`phone`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-INSERT INTO `users` (`id`, `name`, `email`, `phone`, `role`, `address`, `avatar`, `is_active`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES (1, 'Ibu Hj. Siti Aminah (Ketua PKK)', 'admin@pkkkarangkedawung.id', '081234567890', 'admin', 'Jl. Melati No. 12, RT 02 / RW 03 Desa KarangKedawung', NULL, 1, NULL, '$2y$12$6/MutgtnVcNQ4pHG0xkOke/lVI.wQ05NcjZu9UQuKXyTi8UwKOCze', NULL, '2026-10-02 13:14:14', '2026-10-02 13:14:14');
-INSERT INTO `users` (`id`, `name`, `email`, `phone`, `role`, `address`, `avatar`, `is_active`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES (2, 'Ibu Endang Rahayu (Bendahara)', 'endang@gmail.com', '081234567891', 'member', 'RT 02 / RW 03 KarangKedawung', NULL, 1, NULL, '$2y$12$/z/xsUR.oo/H.CdwbFbb4e.4wXJ7v/4WQ9LNyZRZpPMWof3AbJdsW', NULL, '2026-10-02 13:14:14', '2026-10-02 13:14:14');
-INSERT INTO `users` (`id`, `name`, `email`, `phone`, `role`, `address`, `avatar`, `is_active`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES (3, 'Ibu Sri Wahyuni (Sekretaris)', 'sriwahyuni@gmail.com', '081234567892', 'member', 'RT 01 / RW 03 KarangKedawung', NULL, 1, NULL, '$2y$12$RWPgNb7ZulPqxmiLcy8XR.QtKpjqsMDr89tEDOBB9/gStjimFu2TW', NULL, '2026-10-02 13:14:15', '2026-10-02 13:14:15');
-INSERT INTO `users` (`id`, `name`, `email`, `phone`, `role`, `address`, `avatar`, `is_active`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES (4, 'Ibu Ratna Dewi', 'ratna@gmail.com', '081234567893', 'member', 'RT 03 / RW 03 KarangKedawung', NULL, 1, NULL, '$2y$12$/3nAZi5bbaGM/qUJMgdgNuTnvRmxcfsvsI.9ZAraAtKKzr63lLF3u', NULL, '2026-10-02 13:14:15', '2026-10-02 13:14:15');
-INSERT INTO `users` (`id`, `name`, `email`, `phone`, `role`, `address`, `avatar`, `is_active`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES (5, 'Ibu Anisa Putri', 'anisa@gmail.com', '081234567894', 'member', 'RT 02 / RW 03 KarangKedawung', NULL, 1, NULL, '$2y$12$HAh/3a3gWrsViaVrMqKvCOQyVHXjtQiQbgr1CvrIt3xZNXUxirSuy', NULL, '2026-10-02 13:14:16', '2026-10-02 13:14:16');
-INSERT INTO `users` (`id`, `name`, `email`, `phone`, `role`, `address`, `avatar`, `is_active`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES (6, 'Ibu Dewi Lestari', 'dewi@gmail.com', '081234567895', 'member', 'RT 01 / RW 03 KarangKedawung', NULL, 1, NULL, '$2y$12$0z3OY7/CNsYW2FZqz1TDredJL/gFUqoMmqE1/hrXICzfyZbk8OcZu', NULL, '2026-10-02 13:14:17', '2026-10-02 13:14:17');
-INSERT INTO `users` (`id`, `name`, `email`, `phone`, `role`, `address`, `avatar`, `is_active`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES (7, 'Ibu Nurul Hidayah', 'nurul@gmail.com', '081234567896', 'member', 'RT 04 / RW 03 KarangKedawung', NULL, 1, NULL, '$2y$12$/9B8kuVzAzDm5Z.VfMkWKejPQqPmNsCPMVin8n763nBG/7czRqvMa', NULL, '2026-10-02 13:14:17', '2026-10-02 13:14:17');
-INSERT INTO `users` (`id`, `name`, `email`, `phone`, `role`, `address`, `avatar`, `is_active`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES (8, 'Ibu Tri Handayani', 'tri@gmail.com', '081234567897', 'member', 'RT 03 / RW 03 KarangKedawung', NULL, 1, NULL, '$2y$12$8w0w4VXMYsvGvChugIMV/ey/koZuktiKBWA568fLPAGkAP6WkGp8a', NULL, '2026-10-02 13:14:18', '2026-10-02 13:14:18');
-INSERT INTO `users` (`id`, `name`, `email`, `phone`, `role`, `address`, `avatar`, `is_active`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES (9, 'Ibu Yuliana Sari', 'yuliana@gmail.com', '081234567898', 'member', 'RT 02 / RW 03 KarangKedawung', NULL, 1, NULL, '$2y$12$E9z.tmuE0dvfgagXkGBKdOPCeZaXrEBonlBxQ3VSlhguADPWareAe', NULL, '2026-10-02 13:14:19', '2026-10-02 13:14:19');
-INSERT INTO `users` (`id`, `name`, `email`, `phone`, `role`, `address`, `avatar`, `is_active`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES (10, 'Ibu Kartika Wulandari', 'kartika@gmail.com', '081234567899', 'member', 'RT 01 / RW 03 KarangKedawung', NULL, 1, NULL, '$2y$12$ahvr8UqGIU4VTCX82wGF9uW6RtgxLRxc7ddVBIKjxXgB/.rD7wwDO', NULL, '2026-10-02 13:14:19', '2026-10-02 13:14:19');
-
-DROP TABLE IF EXISTS `password_reset_tokens`;
-CREATE TABLE IF NOT EXISTS `password_reset_tokens` (
-  `email` varchar(255) NOT NULL,
-  `token` varchar(255) NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
+-- -----------------------------------------------
+-- Table: password_reset_tokens
+-- -----------------------------------------------
+CREATE TABLE `password_reset_tokens` (
+  `email` VARCHAR(255) NOT NULL,
+  `token` VARCHAR(255) NOT NULL,
+  `created_at` TIMESTAMP NULL DEFAULT NULL,
   PRIMARY KEY (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-DROP TABLE IF EXISTS `sessions`;
-CREATE TABLE IF NOT EXISTS `sessions` (
-  `id` varchar(255) NOT NULL,
-  `user_id` bigint(20) UNSIGNED DEFAULT NULL,
-  `ip_address` varchar(45) DEFAULT NULL,
-  `user_agent` text DEFAULT NULL,
-  `payload` longtext NOT NULL,
-  `last_activity` int(11) NOT NULL,
+-- -----------------------------------------------
+-- Table: sessions
+-- -----------------------------------------------
+CREATE TABLE `sessions` (
+  `id` VARCHAR(255) NOT NULL,
+  `user_id` BIGINT UNSIGNED NULL DEFAULT NULL,
+  `ip_address` VARCHAR(45) NULL DEFAULT NULL,
+  `user_agent` TEXT NULL DEFAULT NULL,
+  `payload` LONGTEXT NOT NULL,
+  `last_activity` INT NOT NULL,
   PRIMARY KEY (`id`),
   KEY `sessions_user_id_index` (`user_id`),
   KEY `sessions_last_activity_index` (`last_activity`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-DROP TABLE IF EXISTS `cache`;
-CREATE TABLE IF NOT EXISTS `cache` (
-  `key` varchar(255) NOT NULL,
-  `value` mediumtext NOT NULL,
-  `expiration` int(11) NOT NULL,
-  PRIMARY KEY (`key`)
+-- -----------------------------------------------
+-- Table: cache
+-- -----------------------------------------------
+CREATE TABLE `cache` (
+  `key` VARCHAR(255) NOT NULL,
+  `value` MEDIUMTEXT NOT NULL,
+  `expiration` BIGINT NOT NULL,
+  PRIMARY KEY (`key`),
+  KEY `cache_expiration_index` (`expiration`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-DROP TABLE IF EXISTS `cache_locks`;
-CREATE TABLE IF NOT EXISTS `cache_locks` (
-  `key` varchar(255) NOT NULL,
-  `owner` varchar(255) NOT NULL,
-  `expiration` int(11) NOT NULL,
-  PRIMARY KEY (`key`)
+-- -----------------------------------------------
+-- Table: cache_locks
+-- -----------------------------------------------
+CREATE TABLE `cache_locks` (
+  `key` VARCHAR(255) NOT NULL,
+  `owner` VARCHAR(255) NOT NULL,
+  `expiration` BIGINT NOT NULL,
+  PRIMARY KEY (`key`),
+  KEY `cache_locks_expiration_index` (`expiration`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-DROP TABLE IF EXISTS `jobs`;
-CREATE TABLE IF NOT EXISTS `jobs` (
-  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `queue` varchar(255) NOT NULL,
-  `payload` longtext NOT NULL,
-  `attempts` tinyint(3) UNSIGNED NOT NULL,
-  `reserved_at` int(10) UNSIGNED DEFAULT NULL,
-  `available_at` int(10) UNSIGNED NOT NULL,
-  `created_at` int(10) UNSIGNED NOT NULL,
+-- -----------------------------------------------
+-- Table: jobs
+-- -----------------------------------------------
+CREATE TABLE `jobs` (
+  `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `queue` VARCHAR(255) NOT NULL,
+  `payload` LONGTEXT NOT NULL,
+  `attempts` SMALLINT UNSIGNED NOT NULL,
+  `reserved_at` INT UNSIGNED NULL DEFAULT NULL,
+  `available_at` INT UNSIGNED NOT NULL,
+  `created_at` INT UNSIGNED NOT NULL,
   PRIMARY KEY (`id`),
   KEY `jobs_queue_index` (`queue`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-DROP TABLE IF EXISTS `arisan_groups`;
-CREATE TABLE IF NOT EXISTS `arisan_groups` (
-  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) NOT NULL,
-  `slug` varchar(255) NOT NULL,
-  `description` text DEFAULT NULL,
-  `admin_id` bigint(20) UNSIGNED NOT NULL,
-  `contribution_amount` decimal(12,2) NOT NULL,
-  `period_type` enum('weekly','biweekly','monthly') NOT NULL DEFAULT 'monthly',
-  `max_members` int(11) NOT NULL DEFAULT 10,
-  `start_date` date NOT NULL,
-  `late_fee_per_day` decimal(10,2) NOT NULL DEFAULT 0.00,
-  `grace_period_days` int(11) NOT NULL DEFAULT 3,
-  `winner_determination` enum('lottery','fixed_order') NOT NULL DEFAULT 'lottery',
-  `only_paid_can_win` tinyint(1) NOT NULL DEFAULT 1,
-  `bank_name` varchar(255) DEFAULT NULL,
-  `bank_account_no` varchar(255) DEFAULT NULL,
-  `bank_account_name` varchar(255) DEFAULT NULL,
-  `status` enum('draft','active','completed') NOT NULL DEFAULT 'draft',
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `arisan_groups_slug_unique` (`slug`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
-INSERT INTO `arisan_groups` (`id`, `name`, `slug`, `description`, `admin_id`, `contribution_amount`, `period_type`, `max_members`, `start_date`, `late_fee_per_day`, `grace_period_days`, `winner_determination`, `only_paid_can_win`, `bank_name`, `bank_account_no`, `bank_account_name`, `qris_image`, `status`, `created_at`, `updated_at`) VALUES (1, 'Arisan Guyub Rukun Melati RW 03', 'arisan-guyub-rukun-melati-rw-03', 'Arisan bulanan ibu-ibu PKK RW 03 KarangKedawung. Pertemuan rutin diadakan setiap hari Minggu pertama di awal bulan.', 1, 100000, 'monthly', 10, '2026-09-01 00:00:00', 2000, 3, 'lottery', 1, 'Bank BCA (Kas PKK Melati)', '8830192837', 'Ibu Endang Rahayu', NULL, 'active', '2026-10-02 13:14:19', '2026-10-02 13:14:19');
-INSERT INTO `arisan_groups` (`id`, `name`, `slug`, `description`, `admin_id`, `contribution_amount`, `period_type`, `max_members`, `start_date`, `late_fee_per_day`, `grace_period_days`, `winner_determination`, `only_paid_can_win`, `bank_name`, `bank_account_no`, `bank_account_name`, `qris_image`, `status`, `created_at`, `updated_at`) VALUES (2, 'Arisan Mawar Cantik PKK RT 01', 'arisan-mawar-cantik-pkk-rt-01', 'Arisan RT 01 sistem urutan tetap. Sangat cocok untuk silaturahmi bulanan.', 1, 50000, 'monthly', 6, '2026-10-01 00:00:00', 1000, 3, 'fixed_order', 1, 'Bank BRI (Kas PKK RT 01)', '034101002938501', 'Ibu Siti Aminah', NULL, 'active', '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-
-DROP TABLE IF EXISTS `arisan_rounds`;
-CREATE TABLE IF NOT EXISTS `arisan_rounds` (
-  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `group_id` bigint(20) UNSIGNED NOT NULL,
-  `round_number` int(11) NOT NULL,
-  `due_date` date NOT NULL,
-  `draw_date` date NOT NULL,
-  `host_user_id` bigint(20) UNSIGNED DEFAULT NULL,
-  `meeting_location` varchar(255) DEFAULT NULL,
-  `winner_user_id` bigint(20) UNSIGNED DEFAULT NULL,
-  `winning_amount` decimal(12,2) DEFAULT NULL,
-  `status` enum('pending','ongoing','completed') NOT NULL DEFAULT 'pending',
-  `prize_disbursed` tinyint(1) NOT NULL DEFAULT 0,
-  `disbursed_at` timestamp NULL DEFAULT NULL,
-  `disbursement_notes` text DEFAULT NULL,
-  `disbursement_proof_path` varchar(255) DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `arisan_rounds_group_id_round_number_unique` (`group_id`,`round_number`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
-INSERT INTO `arisan_rounds` (`id`, `group_id`, `round_number`, `due_date`, `draw_date`, `host_user_id`, `host_location`, `winner_user_id`, `winning_amount`, `prize_disbursed`, `disbursed_at`, `disbursement_proof`, `disbursement_notes`, `status`, `notes`, `created_at`, `updated_at`) VALUES (1, 1, 1, '2026-09-01 00:00:00', '2026-09-03 00:00:00', 1, 'Rumah Tuan Rumah / Balai PKK RW', 3, 1000000, 1, '2026-09-03 11:00:00', NULL, 'Uang tunai Rp 1.000.000 diserahkan langsung pada pertemuan PKK di Balai RW 03.', 'completed', NULL, '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-INSERT INTO `arisan_rounds` (`id`, `group_id`, `round_number`, `due_date`, `draw_date`, `host_user_id`, `host_location`, `winner_user_id`, `winning_amount`, `prize_disbursed`, `disbursed_at`, `disbursement_proof`, `disbursement_notes`, `status`, `notes`, `created_at`, `updated_at`) VALUES (2, 1, 2, '2026-10-01 00:00:00', '2026-10-03 00:00:00', 2, 'Rumah Tuan Rumah / Balai PKK RW', NULL, 1000000, 0, NULL, NULL, NULL, 'ongoing', NULL, '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-INSERT INTO `arisan_rounds` (`id`, `group_id`, `round_number`, `due_date`, `draw_date`, `host_user_id`, `host_location`, `winner_user_id`, `winning_amount`, `prize_disbursed`, `disbursed_at`, `disbursement_proof`, `disbursement_notes`, `status`, `notes`, `created_at`, `updated_at`) VALUES (3, 1, 3, '2026-11-01 00:00:00', '2026-11-03 00:00:00', 3, 'Rumah Tuan Rumah / Balai PKK RW', NULL, 1000000, 0, NULL, NULL, NULL, 'pending', NULL, '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-INSERT INTO `arisan_rounds` (`id`, `group_id`, `round_number`, `due_date`, `draw_date`, `host_user_id`, `host_location`, `winner_user_id`, `winning_amount`, `prize_disbursed`, `disbursed_at`, `disbursement_proof`, `disbursement_notes`, `status`, `notes`, `created_at`, `updated_at`) VALUES (4, 1, 4, '2026-12-01 00:00:00', '2026-12-03 00:00:00', 4, 'Rumah Tuan Rumah / Balai PKK RW', NULL, 1000000, 0, NULL, NULL, NULL, 'pending', NULL, '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-INSERT INTO `arisan_rounds` (`id`, `group_id`, `round_number`, `due_date`, `draw_date`, `host_user_id`, `host_location`, `winner_user_id`, `winning_amount`, `prize_disbursed`, `disbursed_at`, `disbursement_proof`, `disbursement_notes`, `status`, `notes`, `created_at`, `updated_at`) VALUES (5, 1, 5, '2027-01-01 00:00:00', '2027-01-03 00:00:00', 5, 'Rumah Tuan Rumah / Balai PKK RW', NULL, 1000000, 0, NULL, NULL, NULL, 'pending', NULL, '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-INSERT INTO `arisan_rounds` (`id`, `group_id`, `round_number`, `due_date`, `draw_date`, `host_user_id`, `host_location`, `winner_user_id`, `winning_amount`, `prize_disbursed`, `disbursed_at`, `disbursement_proof`, `disbursement_notes`, `status`, `notes`, `created_at`, `updated_at`) VALUES (6, 1, 6, '2027-02-01 00:00:00', '2027-02-03 00:00:00', 6, 'Rumah Tuan Rumah / Balai PKK RW', NULL, 1000000, 0, NULL, NULL, NULL, 'pending', NULL, '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-INSERT INTO `arisan_rounds` (`id`, `group_id`, `round_number`, `due_date`, `draw_date`, `host_user_id`, `host_location`, `winner_user_id`, `winning_amount`, `prize_disbursed`, `disbursed_at`, `disbursement_proof`, `disbursement_notes`, `status`, `notes`, `created_at`, `updated_at`) VALUES (7, 1, 7, '2027-03-01 00:00:00', '2027-03-03 00:00:00', 7, 'Rumah Tuan Rumah / Balai PKK RW', NULL, 1000000, 0, NULL, NULL, NULL, 'pending', NULL, '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-INSERT INTO `arisan_rounds` (`id`, `group_id`, `round_number`, `due_date`, `draw_date`, `host_user_id`, `host_location`, `winner_user_id`, `winning_amount`, `prize_disbursed`, `disbursed_at`, `disbursement_proof`, `disbursement_notes`, `status`, `notes`, `created_at`, `updated_at`) VALUES (8, 1, 8, '2027-04-01 00:00:00', '2027-04-03 00:00:00', 8, 'Rumah Tuan Rumah / Balai PKK RW', NULL, 1000000, 0, NULL, NULL, NULL, 'pending', NULL, '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-INSERT INTO `arisan_rounds` (`id`, `group_id`, `round_number`, `due_date`, `draw_date`, `host_user_id`, `host_location`, `winner_user_id`, `winning_amount`, `prize_disbursed`, `disbursed_at`, `disbursement_proof`, `disbursement_notes`, `status`, `notes`, `created_at`, `updated_at`) VALUES (9, 1, 9, '2027-05-01 00:00:00', '2027-05-03 00:00:00', 9, 'Rumah Tuan Rumah / Balai PKK RW', NULL, 1000000, 0, NULL, NULL, NULL, 'pending', NULL, '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-INSERT INTO `arisan_rounds` (`id`, `group_id`, `round_number`, `due_date`, `draw_date`, `host_user_id`, `host_location`, `winner_user_id`, `winning_amount`, `prize_disbursed`, `disbursed_at`, `disbursement_proof`, `disbursement_notes`, `status`, `notes`, `created_at`, `updated_at`) VALUES (10, 1, 10, '2027-06-01 00:00:00', '2027-06-03 00:00:00', 10, 'Rumah Tuan Rumah / Balai PKK RW', NULL, 1000000, 0, NULL, NULL, NULL, 'pending', NULL, '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-INSERT INTO `arisan_rounds` (`id`, `group_id`, `round_number`, `due_date`, `draw_date`, `host_user_id`, `host_location`, `winner_user_id`, `winning_amount`, `prize_disbursed`, `disbursed_at`, `disbursement_proof`, `disbursement_notes`, `status`, `notes`, `created_at`, `updated_at`) VALUES (11, 2, 1, '2026-10-01 00:00:00', '2026-10-03 00:00:00', 1, 'Rumah Tuan Rumah / Balai PKK RW', NULL, 300000, 0, NULL, NULL, NULL, 'ongoing', NULL, '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-INSERT INTO `arisan_rounds` (`id`, `group_id`, `round_number`, `due_date`, `draw_date`, `host_user_id`, `host_location`, `winner_user_id`, `winning_amount`, `prize_disbursed`, `disbursed_at`, `disbursement_proof`, `disbursement_notes`, `status`, `notes`, `created_at`, `updated_at`) VALUES (12, 2, 2, '2026-11-01 00:00:00', '2026-11-03 00:00:00', 2, 'Rumah Tuan Rumah / Balai PKK RW', NULL, 300000, 0, NULL, NULL, NULL, 'pending', NULL, '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-INSERT INTO `arisan_rounds` (`id`, `group_id`, `round_number`, `due_date`, `draw_date`, `host_user_id`, `host_location`, `winner_user_id`, `winning_amount`, `prize_disbursed`, `disbursed_at`, `disbursement_proof`, `disbursement_notes`, `status`, `notes`, `created_at`, `updated_at`) VALUES (13, 2, 3, '2026-12-01 00:00:00', '2026-12-03 00:00:00', 3, 'Rumah Tuan Rumah / Balai PKK RW', NULL, 300000, 0, NULL, NULL, NULL, 'pending', NULL, '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-INSERT INTO `arisan_rounds` (`id`, `group_id`, `round_number`, `due_date`, `draw_date`, `host_user_id`, `host_location`, `winner_user_id`, `winning_amount`, `prize_disbursed`, `disbursed_at`, `disbursement_proof`, `disbursement_notes`, `status`, `notes`, `created_at`, `updated_at`) VALUES (14, 2, 4, '2027-01-01 00:00:00', '2027-01-03 00:00:00', 4, 'Rumah Tuan Rumah / Balai PKK RW', NULL, 300000, 0, NULL, NULL, NULL, 'pending', NULL, '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-INSERT INTO `arisan_rounds` (`id`, `group_id`, `round_number`, `due_date`, `draw_date`, `host_user_id`, `host_location`, `winner_user_id`, `winning_amount`, `prize_disbursed`, `disbursed_at`, `disbursement_proof`, `disbursement_notes`, `status`, `notes`, `created_at`, `updated_at`) VALUES (15, 2, 5, '2027-02-01 00:00:00', '2027-02-03 00:00:00', 5, 'Rumah Tuan Rumah / Balai PKK RW', NULL, 300000, 0, NULL, NULL, NULL, 'pending', NULL, '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-INSERT INTO `arisan_rounds` (`id`, `group_id`, `round_number`, `due_date`, `draw_date`, `host_user_id`, `host_location`, `winner_user_id`, `winning_amount`, `prize_disbursed`, `disbursed_at`, `disbursement_proof`, `disbursement_notes`, `status`, `notes`, `created_at`, `updated_at`) VALUES (16, 2, 6, '2027-03-01 00:00:00', '2027-03-03 00:00:00', 6, 'Rumah Tuan Rumah / Balai PKK RW', NULL, 300000, 0, NULL, NULL, NULL, 'pending', NULL, '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-
-DROP TABLE IF EXISTS `group_members`;
-CREATE TABLE IF NOT EXISTS `group_members` (
-  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `group_id` bigint(20) UNSIGNED NOT NULL,
-  `user_id` bigint(20) UNSIGNED NOT NULL,
-  `join_date` date NOT NULL,
-  `fixed_order_number` int(11) DEFAULT NULL,
-  `has_won` tinyint(1) NOT NULL DEFAULT 0,
-  `won_round_id` bigint(20) UNSIGNED DEFAULT NULL,
-  `notification_channel` enum('whatsapp','sms','none') NOT NULL DEFAULT 'whatsapp',
-  `is_active` tinyint(1) NOT NULL DEFAULT 1,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `group_members_group_id_user_id_unique` (`group_id`,`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
-INSERT INTO `group_members` (`id`, `group_id`, `user_id`, `join_date`, `fixed_order_number`, `has_won`, `won_round_id`, `notification_channel`, `is_active`, `notes`, `created_at`, `updated_at`) VALUES (1, 1, 1, '2026-09-01 00:00:00', 1, 0, NULL, 'whatsapp', 1, NULL, '2026-10-02 13:14:19', '2026-10-02 13:14:19');
-INSERT INTO `group_members` (`id`, `group_id`, `user_id`, `join_date`, `fixed_order_number`, `has_won`, `won_round_id`, `notification_channel`, `is_active`, `notes`, `created_at`, `updated_at`) VALUES (2, 1, 2, '2026-09-01 00:00:00', 2, 0, NULL, 'whatsapp', 1, NULL, '2026-10-02 13:14:19', '2026-10-02 13:14:19');
-INSERT INTO `group_members` (`id`, `group_id`, `user_id`, `join_date`, `fixed_order_number`, `has_won`, `won_round_id`, `notification_channel`, `is_active`, `notes`, `created_at`, `updated_at`) VALUES (3, 1, 3, '2026-09-01 00:00:00', 3, 1, 1, 'whatsapp', 1, NULL, '2026-10-02 13:14:19', '2026-10-02 13:14:20');
-INSERT INTO `group_members` (`id`, `group_id`, `user_id`, `join_date`, `fixed_order_number`, `has_won`, `won_round_id`, `notification_channel`, `is_active`, `notes`, `created_at`, `updated_at`) VALUES (4, 1, 4, '2026-09-01 00:00:00', 4, 0, NULL, 'whatsapp', 1, NULL, '2026-10-02 13:14:19', '2026-10-02 13:14:19');
-INSERT INTO `group_members` (`id`, `group_id`, `user_id`, `join_date`, `fixed_order_number`, `has_won`, `won_round_id`, `notification_channel`, `is_active`, `notes`, `created_at`, `updated_at`) VALUES (5, 1, 5, '2026-09-01 00:00:00', 5, 0, NULL, 'whatsapp', 1, NULL, '2026-10-02 13:14:19', '2026-10-02 13:14:19');
-INSERT INTO `group_members` (`id`, `group_id`, `user_id`, `join_date`, `fixed_order_number`, `has_won`, `won_round_id`, `notification_channel`, `is_active`, `notes`, `created_at`, `updated_at`) VALUES (6, 1, 6, '2026-09-01 00:00:00', 6, 0, NULL, 'whatsapp', 1, NULL, '2026-10-02 13:14:19', '2026-10-02 13:14:19');
-INSERT INTO `group_members` (`id`, `group_id`, `user_id`, `join_date`, `fixed_order_number`, `has_won`, `won_round_id`, `notification_channel`, `is_active`, `notes`, `created_at`, `updated_at`) VALUES (7, 1, 7, '2026-09-01 00:00:00', 7, 0, NULL, 'whatsapp', 1, NULL, '2026-10-02 13:14:19', '2026-10-02 13:14:19');
-INSERT INTO `group_members` (`id`, `group_id`, `user_id`, `join_date`, `fixed_order_number`, `has_won`, `won_round_id`, `notification_channel`, `is_active`, `notes`, `created_at`, `updated_at`) VALUES (8, 1, 8, '2026-09-01 00:00:00', 8, 0, NULL, 'whatsapp', 1, NULL, '2026-10-02 13:14:19', '2026-10-02 13:14:19');
-INSERT INTO `group_members` (`id`, `group_id`, `user_id`, `join_date`, `fixed_order_number`, `has_won`, `won_round_id`, `notification_channel`, `is_active`, `notes`, `created_at`, `updated_at`) VALUES (9, 1, 9, '2026-09-01 00:00:00', 9, 0, NULL, 'whatsapp', 1, NULL, '2026-10-02 13:14:19', '2026-10-02 13:14:19');
-INSERT INTO `group_members` (`id`, `group_id`, `user_id`, `join_date`, `fixed_order_number`, `has_won`, `won_round_id`, `notification_channel`, `is_active`, `notes`, `created_at`, `updated_at`) VALUES (10, 1, 10, '2026-09-01 00:00:00', 10, 0, NULL, 'whatsapp', 1, NULL, '2026-10-02 13:14:19', '2026-10-02 13:14:19');
-INSERT INTO `group_members` (`id`, `group_id`, `user_id`, `join_date`, `fixed_order_number`, `has_won`, `won_round_id`, `notification_channel`, `is_active`, `notes`, `created_at`, `updated_at`) VALUES (11, 2, 1, '2026-10-01 00:00:00', 1, 0, NULL, 'whatsapp', 1, NULL, '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-INSERT INTO `group_members` (`id`, `group_id`, `user_id`, `join_date`, `fixed_order_number`, `has_won`, `won_round_id`, `notification_channel`, `is_active`, `notes`, `created_at`, `updated_at`) VALUES (12, 2, 2, '2026-10-01 00:00:00', 2, 0, NULL, 'whatsapp', 1, NULL, '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-INSERT INTO `group_members` (`id`, `group_id`, `user_id`, `join_date`, `fixed_order_number`, `has_won`, `won_round_id`, `notification_channel`, `is_active`, `notes`, `created_at`, `updated_at`) VALUES (13, 2, 3, '2026-10-01 00:00:00', 3, 0, NULL, 'whatsapp', 1, NULL, '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-INSERT INTO `group_members` (`id`, `group_id`, `user_id`, `join_date`, `fixed_order_number`, `has_won`, `won_round_id`, `notification_channel`, `is_active`, `notes`, `created_at`, `updated_at`) VALUES (14, 2, 4, '2026-10-01 00:00:00', 4, 0, NULL, 'whatsapp', 1, NULL, '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-INSERT INTO `group_members` (`id`, `group_id`, `user_id`, `join_date`, `fixed_order_number`, `has_won`, `won_round_id`, `notification_channel`, `is_active`, `notes`, `created_at`, `updated_at`) VALUES (15, 2, 5, '2026-10-01 00:00:00', 5, 0, NULL, 'whatsapp', 1, NULL, '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-INSERT INTO `group_members` (`id`, `group_id`, `user_id`, `join_date`, `fixed_order_number`, `has_won`, `won_round_id`, `notification_channel`, `is_active`, `notes`, `created_at`, `updated_at`) VALUES (16, 2, 6, '2026-10-01 00:00:00', 6, 0, NULL, 'whatsapp', 1, NULL, '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-
-DROP TABLE IF EXISTS `payments`;
-CREATE TABLE IF NOT EXISTS `payments` (
-  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `group_id` bigint(20) UNSIGNED NOT NULL,
-  `round_id` bigint(20) UNSIGNED NOT NULL,
-  `user_id` bigint(20) UNSIGNED NOT NULL,
-  `amount` decimal(12,2) NOT NULL,
-  `penalty_amount` decimal(10,2) NOT NULL DEFAULT 0.00,
-  `payment_method` enum('cash','transfer') NOT NULL DEFAULT 'transfer',
-  `payment_status` enum('unpaid','pending_verification','paid','late') NOT NULL DEFAULT 'unpaid',
-  `proof_image_path` varchar(255) DEFAULT NULL,
-  `user_notes` text DEFAULT NULL,
-  `due_date` date NOT NULL,
-  `paid_at` timestamp NULL DEFAULT NULL,
-  `verified_at` timestamp NULL DEFAULT NULL,
-  `verified_by` bigint(20) UNSIGNED DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `payments_round_id_user_id_unique` (`round_id`,`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
-INSERT INTO `payments` (`id`, `round_id`, `group_id`, `user_id`, `amount`, `penalty_amount`, `total_amount`, `due_date`, `payment_status`, `payment_method`, `proof_image`, `paid_at`, `verified_at`, `verified_by`, `rejection_reason`, `user_notes`, `admin_notes`, `created_at`, `updated_at`) VALUES (1, 1, 1, 1, 100000, 0, 100000, '2026-09-01 00:00:00', 'paid', 'transfer', NULL, '2026-08-31 00:00:00', '2026-09-01 00:00:00', 1, NULL, NULL, NULL, '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-INSERT INTO `payments` (`id`, `round_id`, `group_id`, `user_id`, `amount`, `penalty_amount`, `total_amount`, `due_date`, `payment_status`, `payment_method`, `proof_image`, `paid_at`, `verified_at`, `verified_by`, `rejection_reason`, `user_notes`, `admin_notes`, `created_at`, `updated_at`) VALUES (2, 1, 1, 2, 100000, 0, 100000, '2026-09-01 00:00:00', 'paid', 'transfer', NULL, '2026-08-31 00:00:00', '2026-09-01 00:00:00', 1, NULL, NULL, NULL, '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-INSERT INTO `payments` (`id`, `round_id`, `group_id`, `user_id`, `amount`, `penalty_amount`, `total_amount`, `due_date`, `payment_status`, `payment_method`, `proof_image`, `paid_at`, `verified_at`, `verified_by`, `rejection_reason`, `user_notes`, `admin_notes`, `created_at`, `updated_at`) VALUES (3, 1, 1, 3, 100000, 0, 100000, '2026-09-01 00:00:00', 'paid', 'transfer', NULL, '2026-08-31 00:00:00', '2026-09-01 00:00:00', 1, NULL, NULL, NULL, '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-INSERT INTO `payments` (`id`, `round_id`, `group_id`, `user_id`, `amount`, `penalty_amount`, `total_amount`, `due_date`, `payment_status`, `payment_method`, `proof_image`, `paid_at`, `verified_at`, `verified_by`, `rejection_reason`, `user_notes`, `admin_notes`, `created_at`, `updated_at`) VALUES (4, 1, 1, 4, 100000, 0, 100000, '2026-09-01 00:00:00', 'paid', 'transfer', NULL, '2026-08-31 00:00:00', '2026-09-01 00:00:00', 1, NULL, NULL, NULL, '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-INSERT INTO `payments` (`id`, `round_id`, `group_id`, `user_id`, `amount`, `penalty_amount`, `total_amount`, `due_date`, `payment_status`, `payment_method`, `proof_image`, `paid_at`, `verified_at`, `verified_by`, `rejection_reason`, `user_notes`, `admin_notes`, `created_at`, `updated_at`) VALUES (5, 1, 1, 5, 100000, 0, 100000, '2026-09-01 00:00:00', 'paid', 'transfer', NULL, '2026-08-31 00:00:00', '2026-09-01 00:00:00', 1, NULL, NULL, NULL, '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-INSERT INTO `payments` (`id`, `round_id`, `group_id`, `user_id`, `amount`, `penalty_amount`, `total_amount`, `due_date`, `payment_status`, `payment_method`, `proof_image`, `paid_at`, `verified_at`, `verified_by`, `rejection_reason`, `user_notes`, `admin_notes`, `created_at`, `updated_at`) VALUES (6, 1, 1, 6, 100000, 0, 100000, '2026-09-01 00:00:00', 'paid', 'transfer', NULL, '2026-08-31 00:00:00', '2026-09-01 00:00:00', 1, NULL, NULL, NULL, '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-INSERT INTO `payments` (`id`, `round_id`, `group_id`, `user_id`, `amount`, `penalty_amount`, `total_amount`, `due_date`, `payment_status`, `payment_method`, `proof_image`, `paid_at`, `verified_at`, `verified_by`, `rejection_reason`, `user_notes`, `admin_notes`, `created_at`, `updated_at`) VALUES (7, 1, 1, 7, 100000, 0, 100000, '2026-09-01 00:00:00', 'paid', 'transfer', NULL, '2026-08-31 00:00:00', '2026-09-01 00:00:00', 1, NULL, NULL, NULL, '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-INSERT INTO `payments` (`id`, `round_id`, `group_id`, `user_id`, `amount`, `penalty_amount`, `total_amount`, `due_date`, `payment_status`, `payment_method`, `proof_image`, `paid_at`, `verified_at`, `verified_by`, `rejection_reason`, `user_notes`, `admin_notes`, `created_at`, `updated_at`) VALUES (8, 1, 1, 8, 100000, 0, 100000, '2026-09-01 00:00:00', 'paid', 'transfer', NULL, '2026-08-31 00:00:00', '2026-09-01 00:00:00', 1, NULL, NULL, NULL, '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-INSERT INTO `payments` (`id`, `round_id`, `group_id`, `user_id`, `amount`, `penalty_amount`, `total_amount`, `due_date`, `payment_status`, `payment_method`, `proof_image`, `paid_at`, `verified_at`, `verified_by`, `rejection_reason`, `user_notes`, `admin_notes`, `created_at`, `updated_at`) VALUES (9, 1, 1, 9, 100000, 0, 100000, '2026-09-01 00:00:00', 'paid', 'transfer', NULL, '2026-08-31 00:00:00', '2026-09-01 00:00:00', 1, NULL, NULL, NULL, '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-INSERT INTO `payments` (`id`, `round_id`, `group_id`, `user_id`, `amount`, `penalty_amount`, `total_amount`, `due_date`, `payment_status`, `payment_method`, `proof_image`, `paid_at`, `verified_at`, `verified_by`, `rejection_reason`, `user_notes`, `admin_notes`, `created_at`, `updated_at`) VALUES (10, 1, 1, 10, 100000, 0, 100000, '2026-09-01 00:00:00', 'paid', 'transfer', NULL, '2026-08-31 00:00:00', '2026-09-01 00:00:00', 1, NULL, NULL, NULL, '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-INSERT INTO `payments` (`id`, `round_id`, `group_id`, `user_id`, `amount`, `penalty_amount`, `total_amount`, `due_date`, `payment_status`, `payment_method`, `proof_image`, `paid_at`, `verified_at`, `verified_by`, `rejection_reason`, `user_notes`, `admin_notes`, `created_at`, `updated_at`) VALUES (11, 2, 1, 1, 100000, 0, 100000, '2026-10-01 00:00:00', 'paid', 'transfer', NULL, '2026-09-30 13:14:20', '2026-10-01 13:14:20', 1, NULL, NULL, NULL, '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-INSERT INTO `payments` (`id`, `round_id`, `group_id`, `user_id`, `amount`, `penalty_amount`, `total_amount`, `due_date`, `payment_status`, `payment_method`, `proof_image`, `paid_at`, `verified_at`, `verified_by`, `rejection_reason`, `user_notes`, `admin_notes`, `created_at`, `updated_at`) VALUES (12, 2, 1, 2, 100000, 0, 100000, '2026-10-01 00:00:00', 'paid', 'transfer', NULL, '2026-09-30 13:14:20', '2026-10-01 13:14:20', 1, NULL, NULL, NULL, '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-INSERT INTO `payments` (`id`, `round_id`, `group_id`, `user_id`, `amount`, `penalty_amount`, `total_amount`, `due_date`, `payment_status`, `payment_method`, `proof_image`, `paid_at`, `verified_at`, `verified_by`, `rejection_reason`, `user_notes`, `admin_notes`, `created_at`, `updated_at`) VALUES (13, 2, 1, 3, 100000, 0, 100000, '2026-10-01 00:00:00', 'paid', 'transfer', NULL, '2026-09-30 13:14:20', '2026-10-01 13:14:20', 1, NULL, NULL, NULL, '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-INSERT INTO `payments` (`id`, `round_id`, `group_id`, `user_id`, `amount`, `penalty_amount`, `total_amount`, `due_date`, `payment_status`, `payment_method`, `proof_image`, `paid_at`, `verified_at`, `verified_by`, `rejection_reason`, `user_notes`, `admin_notes`, `created_at`, `updated_at`) VALUES (14, 2, 1, 4, 100000, 0, 100000, '2026-10-01 00:00:00', 'paid', 'transfer', NULL, '2026-09-30 13:14:20', '2026-10-01 13:14:20', 1, NULL, NULL, NULL, '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-INSERT INTO `payments` (`id`, `round_id`, `group_id`, `user_id`, `amount`, `penalty_amount`, `total_amount`, `due_date`, `payment_status`, `payment_method`, `proof_image`, `paid_at`, `verified_at`, `verified_by`, `rejection_reason`, `user_notes`, `admin_notes`, `created_at`, `updated_at`) VALUES (15, 2, 1, 5, 100000, 0, 100000, '2026-10-01 00:00:00', 'paid', 'transfer', NULL, '2026-09-30 13:14:20', '2026-10-01 13:14:20', 1, NULL, NULL, NULL, '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-INSERT INTO `payments` (`id`, `round_id`, `group_id`, `user_id`, `amount`, `penalty_amount`, `total_amount`, `due_date`, `payment_status`, `payment_method`, `proof_image`, `paid_at`, `verified_at`, `verified_by`, `rejection_reason`, `user_notes`, `admin_notes`, `created_at`, `updated_at`) VALUES (16, 2, 1, 6, 100000, 0, 100000, '2026-10-01 00:00:00', 'pending_verification', 'transfer', NULL, '2026-10-02 10:14:20', NULL, NULL, NULL, 'Sudah transfer via BCA Mobile atas nama Bpk. Slamet (Suami). Mohon dicek ya Bu.', NULL, '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-INSERT INTO `payments` (`id`, `round_id`, `group_id`, `user_id`, `amount`, `penalty_amount`, `total_amount`, `due_date`, `payment_status`, `payment_method`, `proof_image`, `paid_at`, `verified_at`, `verified_by`, `rejection_reason`, `user_notes`, `admin_notes`, `created_at`, `updated_at`) VALUES (17, 2, 1, 7, 100000, 0, 100000, '2026-10-01 00:00:00', 'unpaid', 'transfer', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-INSERT INTO `payments` (`id`, `round_id`, `group_id`, `user_id`, `amount`, `penalty_amount`, `total_amount`, `due_date`, `payment_status`, `payment_method`, `proof_image`, `paid_at`, `verified_at`, `verified_by`, `rejection_reason`, `user_notes`, `admin_notes`, `created_at`, `updated_at`) VALUES (18, 2, 1, 8, 100000, 0, 100000, '2026-10-01 00:00:00', 'unpaid', 'transfer', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-INSERT INTO `payments` (`id`, `round_id`, `group_id`, `user_id`, `amount`, `penalty_amount`, `total_amount`, `due_date`, `payment_status`, `payment_method`, `proof_image`, `paid_at`, `verified_at`, `verified_by`, `rejection_reason`, `user_notes`, `admin_notes`, `created_at`, `updated_at`) VALUES (19, 2, 1, 9, 100000, 0, 100000, '2026-10-01 00:00:00', 'unpaid', 'transfer', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-INSERT INTO `payments` (`id`, `round_id`, `group_id`, `user_id`, `amount`, `penalty_amount`, `total_amount`, `due_date`, `payment_status`, `payment_method`, `proof_image`, `paid_at`, `verified_at`, `verified_by`, `rejection_reason`, `user_notes`, `admin_notes`, `created_at`, `updated_at`) VALUES (20, 2, 1, 10, 100000, 0, 100000, '2026-10-01 00:00:00', 'unpaid', 'transfer', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-INSERT INTO `payments` (`id`, `round_id`, `group_id`, `user_id`, `amount`, `penalty_amount`, `total_amount`, `due_date`, `payment_status`, `payment_method`, `proof_image`, `paid_at`, `verified_at`, `verified_by`, `rejection_reason`, `user_notes`, `admin_notes`, `created_at`, `updated_at`) VALUES (21, 3, 1, 1, 100000, 0, 100000, '2026-11-01 00:00:00', 'unpaid', 'transfer', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-INSERT INTO `payments` (`id`, `round_id`, `group_id`, `user_id`, `amount`, `penalty_amount`, `total_amount`, `due_date`, `payment_status`, `payment_method`, `proof_image`, `paid_at`, `verified_at`, `verified_by`, `rejection_reason`, `user_notes`, `admin_notes`, `created_at`, `updated_at`) VALUES (22, 3, 1, 2, 100000, 0, 100000, '2026-11-01 00:00:00', 'unpaid', 'transfer', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-INSERT INTO `payments` (`id`, `round_id`, `group_id`, `user_id`, `amount`, `penalty_amount`, `total_amount`, `due_date`, `payment_status`, `payment_method`, `proof_image`, `paid_at`, `verified_at`, `verified_by`, `rejection_reason`, `user_notes`, `admin_notes`, `created_at`, `updated_at`) VALUES (23, 3, 1, 3, 100000, 0, 100000, '2026-11-01 00:00:00', 'unpaid', 'transfer', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-INSERT INTO `payments` (`id`, `round_id`, `group_id`, `user_id`, `amount`, `penalty_amount`, `total_amount`, `due_date`, `payment_status`, `payment_method`, `proof_image`, `paid_at`, `verified_at`, `verified_by`, `rejection_reason`, `user_notes`, `admin_notes`, `created_at`, `updated_at`) VALUES (24, 3, 1, 4, 100000, 0, 100000, '2026-11-01 00:00:00', 'unpaid', 'transfer', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-INSERT INTO `payments` (`id`, `round_id`, `group_id`, `user_id`, `amount`, `penalty_amount`, `total_amount`, `due_date`, `payment_status`, `payment_method`, `proof_image`, `paid_at`, `verified_at`, `verified_by`, `rejection_reason`, `user_notes`, `admin_notes`, `created_at`, `updated_at`) VALUES (25, 3, 1, 5, 100000, 0, 100000, '2026-11-01 00:00:00', 'unpaid', 'transfer', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-INSERT INTO `payments` (`id`, `round_id`, `group_id`, `user_id`, `amount`, `penalty_amount`, `total_amount`, `due_date`, `payment_status`, `payment_method`, `proof_image`, `paid_at`, `verified_at`, `verified_by`, `rejection_reason`, `user_notes`, `admin_notes`, `created_at`, `updated_at`) VALUES (26, 3, 1, 6, 100000, 0, 100000, '2026-11-01 00:00:00', 'unpaid', 'transfer', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-INSERT INTO `payments` (`id`, `round_id`, `group_id`, `user_id`, `amount`, `penalty_amount`, `total_amount`, `due_date`, `payment_status`, `payment_method`, `proof_image`, `paid_at`, `verified_at`, `verified_by`, `rejection_reason`, `user_notes`, `admin_notes`, `created_at`, `updated_at`) VALUES (27, 3, 1, 7, 100000, 0, 100000, '2026-11-01 00:00:00', 'unpaid', 'transfer', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-INSERT INTO `payments` (`id`, `round_id`, `group_id`, `user_id`, `amount`, `penalty_amount`, `total_amount`, `due_date`, `payment_status`, `payment_method`, `proof_image`, `paid_at`, `verified_at`, `verified_by`, `rejection_reason`, `user_notes`, `admin_notes`, `created_at`, `updated_at`) VALUES (28, 3, 1, 8, 100000, 0, 100000, '2026-11-01 00:00:00', 'unpaid', 'transfer', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-INSERT INTO `payments` (`id`, `round_id`, `group_id`, `user_id`, `amount`, `penalty_amount`, `total_amount`, `due_date`, `payment_status`, `payment_method`, `proof_image`, `paid_at`, `verified_at`, `verified_by`, `rejection_reason`, `user_notes`, `admin_notes`, `created_at`, `updated_at`) VALUES (29, 3, 1, 9, 100000, 0, 100000, '2026-11-01 00:00:00', 'unpaid', 'transfer', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-INSERT INTO `payments` (`id`, `round_id`, `group_id`, `user_id`, `amount`, `penalty_amount`, `total_amount`, `due_date`, `payment_status`, `payment_method`, `proof_image`, `paid_at`, `verified_at`, `verified_by`, `rejection_reason`, `user_notes`, `admin_notes`, `created_at`, `updated_at`) VALUES (30, 3, 1, 10, 100000, 0, 100000, '2026-11-01 00:00:00', 'unpaid', 'transfer', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-INSERT INTO `payments` (`id`, `round_id`, `group_id`, `user_id`, `amount`, `penalty_amount`, `total_amount`, `due_date`, `payment_status`, `payment_method`, `proof_image`, `paid_at`, `verified_at`, `verified_by`, `rejection_reason`, `user_notes`, `admin_notes`, `created_at`, `updated_at`) VALUES (31, 4, 1, 1, 100000, 0, 100000, '2026-12-01 00:00:00', 'unpaid', 'transfer', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-INSERT INTO `payments` (`id`, `round_id`, `group_id`, `user_id`, `amount`, `penalty_amount`, `total_amount`, `due_date`, `payment_status`, `payment_method`, `proof_image`, `paid_at`, `verified_at`, `verified_by`, `rejection_reason`, `user_notes`, `admin_notes`, `created_at`, `updated_at`) VALUES (32, 4, 1, 2, 100000, 0, 100000, '2026-12-01 00:00:00', 'unpaid', 'transfer', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-INSERT INTO `payments` (`id`, `round_id`, `group_id`, `user_id`, `amount`, `penalty_amount`, `total_amount`, `due_date`, `payment_status`, `payment_method`, `proof_image`, `paid_at`, `verified_at`, `verified_by`, `rejection_reason`, `user_notes`, `admin_notes`, `created_at`, `updated_at`) VALUES (33, 4, 1, 3, 100000, 0, 100000, '2026-12-01 00:00:00', 'unpaid', 'transfer', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-INSERT INTO `payments` (`id`, `round_id`, `group_id`, `user_id`, `amount`, `penalty_amount`, `total_amount`, `due_date`, `payment_status`, `payment_method`, `proof_image`, `paid_at`, `verified_at`, `verified_by`, `rejection_reason`, `user_notes`, `admin_notes`, `created_at`, `updated_at`) VALUES (34, 4, 1, 4, 100000, 0, 100000, '2026-12-01 00:00:00', 'unpaid', 'transfer', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-INSERT INTO `payments` (`id`, `round_id`, `group_id`, `user_id`, `amount`, `penalty_amount`, `total_amount`, `due_date`, `payment_status`, `payment_method`, `proof_image`, `paid_at`, `verified_at`, `verified_by`, `rejection_reason`, `user_notes`, `admin_notes`, `created_at`, `updated_at`) VALUES (35, 4, 1, 5, 100000, 0, 100000, '2026-12-01 00:00:00', 'unpaid', 'transfer', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-INSERT INTO `payments` (`id`, `round_id`, `group_id`, `user_id`, `amount`, `penalty_amount`, `total_amount`, `due_date`, `payment_status`, `payment_method`, `proof_image`, `paid_at`, `verified_at`, `verified_by`, `rejection_reason`, `user_notes`, `admin_notes`, `created_at`, `updated_at`) VALUES (36, 4, 1, 6, 100000, 0, 100000, '2026-12-01 00:00:00', 'unpaid', 'transfer', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-INSERT INTO `payments` (`id`, `round_id`, `group_id`, `user_id`, `amount`, `penalty_amount`, `total_amount`, `due_date`, `payment_status`, `payment_method`, `proof_image`, `paid_at`, `verified_at`, `verified_by`, `rejection_reason`, `user_notes`, `admin_notes`, `created_at`, `updated_at`) VALUES (37, 4, 1, 7, 100000, 0, 100000, '2026-12-01 00:00:00', 'unpaid', 'transfer', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-INSERT INTO `payments` (`id`, `round_id`, `group_id`, `user_id`, `amount`, `penalty_amount`, `total_amount`, `due_date`, `payment_status`, `payment_method`, `proof_image`, `paid_at`, `verified_at`, `verified_by`, `rejection_reason`, `user_notes`, `admin_notes`, `created_at`, `updated_at`) VALUES (38, 4, 1, 8, 100000, 0, 100000, '2026-12-01 00:00:00', 'unpaid', 'transfer', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-INSERT INTO `payments` (`id`, `round_id`, `group_id`, `user_id`, `amount`, `penalty_amount`, `total_amount`, `due_date`, `payment_status`, `payment_method`, `proof_image`, `paid_at`, `verified_at`, `verified_by`, `rejection_reason`, `user_notes`, `admin_notes`, `created_at`, `updated_at`) VALUES (39, 4, 1, 9, 100000, 0, 100000, '2026-12-01 00:00:00', 'unpaid', 'transfer', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-INSERT INTO `payments` (`id`, `round_id`, `group_id`, `user_id`, `amount`, `penalty_amount`, `total_amount`, `due_date`, `payment_status`, `payment_method`, `proof_image`, `paid_at`, `verified_at`, `verified_by`, `rejection_reason`, `user_notes`, `admin_notes`, `created_at`, `updated_at`) VALUES (40, 4, 1, 10, 100000, 0, 100000, '2026-12-01 00:00:00', 'unpaid', 'transfer', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-INSERT INTO `payments` (`id`, `round_id`, `group_id`, `user_id`, `amount`, `penalty_amount`, `total_amount`, `due_date`, `payment_status`, `payment_method`, `proof_image`, `paid_at`, `verified_at`, `verified_by`, `rejection_reason`, `user_notes`, `admin_notes`, `created_at`, `updated_at`) VALUES (41, 5, 1, 1, 100000, 0, 100000, '2027-01-01 00:00:00', 'unpaid', 'transfer', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-INSERT INTO `payments` (`id`, `round_id`, `group_id`, `user_id`, `amount`, `penalty_amount`, `total_amount`, `due_date`, `payment_status`, `payment_method`, `proof_image`, `paid_at`, `verified_at`, `verified_by`, `rejection_reason`, `user_notes`, `admin_notes`, `created_at`, `updated_at`) VALUES (42, 5, 1, 2, 100000, 0, 100000, '2027-01-01 00:00:00', 'unpaid', 'transfer', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-INSERT INTO `payments` (`id`, `round_id`, `group_id`, `user_id`, `amount`, `penalty_amount`, `total_amount`, `due_date`, `payment_status`, `payment_method`, `proof_image`, `paid_at`, `verified_at`, `verified_by`, `rejection_reason`, `user_notes`, `admin_notes`, `created_at`, `updated_at`) VALUES (43, 5, 1, 3, 100000, 0, 100000, '2027-01-01 00:00:00', 'unpaid', 'transfer', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-INSERT INTO `payments` (`id`, `round_id`, `group_id`, `user_id`, `amount`, `penalty_amount`, `total_amount`, `due_date`, `payment_status`, `payment_method`, `proof_image`, `paid_at`, `verified_at`, `verified_by`, `rejection_reason`, `user_notes`, `admin_notes`, `created_at`, `updated_at`) VALUES (44, 5, 1, 4, 100000, 0, 100000, '2027-01-01 00:00:00', 'unpaid', 'transfer', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-INSERT INTO `payments` (`id`, `round_id`, `group_id`, `user_id`, `amount`, `penalty_amount`, `total_amount`, `due_date`, `payment_status`, `payment_method`, `proof_image`, `paid_at`, `verified_at`, `verified_by`, `rejection_reason`, `user_notes`, `admin_notes`, `created_at`, `updated_at`) VALUES (45, 5, 1, 5, 100000, 0, 100000, '2027-01-01 00:00:00', 'unpaid', 'transfer', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-INSERT INTO `payments` (`id`, `round_id`, `group_id`, `user_id`, `amount`, `penalty_amount`, `total_amount`, `due_date`, `payment_status`, `payment_method`, `proof_image`, `paid_at`, `verified_at`, `verified_by`, `rejection_reason`, `user_notes`, `admin_notes`, `created_at`, `updated_at`) VALUES (46, 5, 1, 6, 100000, 0, 100000, '2027-01-01 00:00:00', 'unpaid', 'transfer', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-INSERT INTO `payments` (`id`, `round_id`, `group_id`, `user_id`, `amount`, `penalty_amount`, `total_amount`, `due_date`, `payment_status`, `payment_method`, `proof_image`, `paid_at`, `verified_at`, `verified_by`, `rejection_reason`, `user_notes`, `admin_notes`, `created_at`, `updated_at`) VALUES (47, 5, 1, 7, 100000, 0, 100000, '2027-01-01 00:00:00', 'unpaid', 'transfer', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-INSERT INTO `payments` (`id`, `round_id`, `group_id`, `user_id`, `amount`, `penalty_amount`, `total_amount`, `due_date`, `payment_status`, `payment_method`, `proof_image`, `paid_at`, `verified_at`, `verified_by`, `rejection_reason`, `user_notes`, `admin_notes`, `created_at`, `updated_at`) VALUES (48, 5, 1, 8, 100000, 0, 100000, '2027-01-01 00:00:00', 'unpaid', 'transfer', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-INSERT INTO `payments` (`id`, `round_id`, `group_id`, `user_id`, `amount`, `penalty_amount`, `total_amount`, `due_date`, `payment_status`, `payment_method`, `proof_image`, `paid_at`, `verified_at`, `verified_by`, `rejection_reason`, `user_notes`, `admin_notes`, `created_at`, `updated_at`) VALUES (49, 5, 1, 9, 100000, 0, 100000, '2027-01-01 00:00:00', 'unpaid', 'transfer', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-INSERT INTO `payments` (`id`, `round_id`, `group_id`, `user_id`, `amount`, `penalty_amount`, `total_amount`, `due_date`, `payment_status`, `payment_method`, `proof_image`, `paid_at`, `verified_at`, `verified_by`, `rejection_reason`, `user_notes`, `admin_notes`, `created_at`, `updated_at`) VALUES (50, 5, 1, 10, 100000, 0, 100000, '2027-01-01 00:00:00', 'unpaid', 'transfer', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-INSERT INTO `payments` (`id`, `round_id`, `group_id`, `user_id`, `amount`, `penalty_amount`, `total_amount`, `due_date`, `payment_status`, `payment_method`, `proof_image`, `paid_at`, `verified_at`, `verified_by`, `rejection_reason`, `user_notes`, `admin_notes`, `created_at`, `updated_at`) VALUES (51, 6, 1, 1, 100000, 0, 100000, '2027-02-01 00:00:00', 'unpaid', 'transfer', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-INSERT INTO `payments` (`id`, `round_id`, `group_id`, `user_id`, `amount`, `penalty_amount`, `total_amount`, `due_date`, `payment_status`, `payment_method`, `proof_image`, `paid_at`, `verified_at`, `verified_by`, `rejection_reason`, `user_notes`, `admin_notes`, `created_at`, `updated_at`) VALUES (52, 6, 1, 2, 100000, 0, 100000, '2027-02-01 00:00:00', 'unpaid', 'transfer', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-INSERT INTO `payments` (`id`, `round_id`, `group_id`, `user_id`, `amount`, `penalty_amount`, `total_amount`, `due_date`, `payment_status`, `payment_method`, `proof_image`, `paid_at`, `verified_at`, `verified_by`, `rejection_reason`, `user_notes`, `admin_notes`, `created_at`, `updated_at`) VALUES (53, 6, 1, 3, 100000, 0, 100000, '2027-02-01 00:00:00', 'unpaid', 'transfer', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-INSERT INTO `payments` (`id`, `round_id`, `group_id`, `user_id`, `amount`, `penalty_amount`, `total_amount`, `due_date`, `payment_status`, `payment_method`, `proof_image`, `paid_at`, `verified_at`, `verified_by`, `rejection_reason`, `user_notes`, `admin_notes`, `created_at`, `updated_at`) VALUES (54, 6, 1, 4, 100000, 0, 100000, '2027-02-01 00:00:00', 'unpaid', 'transfer', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-INSERT INTO `payments` (`id`, `round_id`, `group_id`, `user_id`, `amount`, `penalty_amount`, `total_amount`, `due_date`, `payment_status`, `payment_method`, `proof_image`, `paid_at`, `verified_at`, `verified_by`, `rejection_reason`, `user_notes`, `admin_notes`, `created_at`, `updated_at`) VALUES (55, 6, 1, 5, 100000, 0, 100000, '2027-02-01 00:00:00', 'unpaid', 'transfer', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-INSERT INTO `payments` (`id`, `round_id`, `group_id`, `user_id`, `amount`, `penalty_amount`, `total_amount`, `due_date`, `payment_status`, `payment_method`, `proof_image`, `paid_at`, `verified_at`, `verified_by`, `rejection_reason`, `user_notes`, `admin_notes`, `created_at`, `updated_at`) VALUES (56, 6, 1, 6, 100000, 0, 100000, '2027-02-01 00:00:00', 'unpaid', 'transfer', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-INSERT INTO `payments` (`id`, `round_id`, `group_id`, `user_id`, `amount`, `penalty_amount`, `total_amount`, `due_date`, `payment_status`, `payment_method`, `proof_image`, `paid_at`, `verified_at`, `verified_by`, `rejection_reason`, `user_notes`, `admin_notes`, `created_at`, `updated_at`) VALUES (57, 6, 1, 7, 100000, 0, 100000, '2027-02-01 00:00:00', 'unpaid', 'transfer', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-INSERT INTO `payments` (`id`, `round_id`, `group_id`, `user_id`, `amount`, `penalty_amount`, `total_amount`, `due_date`, `payment_status`, `payment_method`, `proof_image`, `paid_at`, `verified_at`, `verified_by`, `rejection_reason`, `user_notes`, `admin_notes`, `created_at`, `updated_at`) VALUES (58, 6, 1, 8, 100000, 0, 100000, '2027-02-01 00:00:00', 'unpaid', 'transfer', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-INSERT INTO `payments` (`id`, `round_id`, `group_id`, `user_id`, `amount`, `penalty_amount`, `total_amount`, `due_date`, `payment_status`, `payment_method`, `proof_image`, `paid_at`, `verified_at`, `verified_by`, `rejection_reason`, `user_notes`, `admin_notes`, `created_at`, `updated_at`) VALUES (59, 6, 1, 9, 100000, 0, 100000, '2027-02-01 00:00:00', 'unpaid', 'transfer', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-INSERT INTO `payments` (`id`, `round_id`, `group_id`, `user_id`, `amount`, `penalty_amount`, `total_amount`, `due_date`, `payment_status`, `payment_method`, `proof_image`, `paid_at`, `verified_at`, `verified_by`, `rejection_reason`, `user_notes`, `admin_notes`, `created_at`, `updated_at`) VALUES (60, 6, 1, 10, 100000, 0, 100000, '2027-02-01 00:00:00', 'unpaid', 'transfer', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-INSERT INTO `payments` (`id`, `round_id`, `group_id`, `user_id`, `amount`, `penalty_amount`, `total_amount`, `due_date`, `payment_status`, `payment_method`, `proof_image`, `paid_at`, `verified_at`, `verified_by`, `rejection_reason`, `user_notes`, `admin_notes`, `created_at`, `updated_at`) VALUES (61, 7, 1, 1, 100000, 0, 100000, '2027-03-01 00:00:00', 'unpaid', 'transfer', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-INSERT INTO `payments` (`id`, `round_id`, `group_id`, `user_id`, `amount`, `penalty_amount`, `total_amount`, `due_date`, `payment_status`, `payment_method`, `proof_image`, `paid_at`, `verified_at`, `verified_by`, `rejection_reason`, `user_notes`, `admin_notes`, `created_at`, `updated_at`) VALUES (62, 7, 1, 2, 100000, 0, 100000, '2027-03-01 00:00:00', 'unpaid', 'transfer', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-INSERT INTO `payments` (`id`, `round_id`, `group_id`, `user_id`, `amount`, `penalty_amount`, `total_amount`, `due_date`, `payment_status`, `payment_method`, `proof_image`, `paid_at`, `verified_at`, `verified_by`, `rejection_reason`, `user_notes`, `admin_notes`, `created_at`, `updated_at`) VALUES (63, 7, 1, 3, 100000, 0, 100000, '2027-03-01 00:00:00', 'unpaid', 'transfer', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-INSERT INTO `payments` (`id`, `round_id`, `group_id`, `user_id`, `amount`, `penalty_amount`, `total_amount`, `due_date`, `payment_status`, `payment_method`, `proof_image`, `paid_at`, `verified_at`, `verified_by`, `rejection_reason`, `user_notes`, `admin_notes`, `created_at`, `updated_at`) VALUES (64, 7, 1, 4, 100000, 0, 100000, '2027-03-01 00:00:00', 'unpaid', 'transfer', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-INSERT INTO `payments` (`id`, `round_id`, `group_id`, `user_id`, `amount`, `penalty_amount`, `total_amount`, `due_date`, `payment_status`, `payment_method`, `proof_image`, `paid_at`, `verified_at`, `verified_by`, `rejection_reason`, `user_notes`, `admin_notes`, `created_at`, `updated_at`) VALUES (65, 7, 1, 5, 100000, 0, 100000, '2027-03-01 00:00:00', 'unpaid', 'transfer', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-INSERT INTO `payments` (`id`, `round_id`, `group_id`, `user_id`, `amount`, `penalty_amount`, `total_amount`, `due_date`, `payment_status`, `payment_method`, `proof_image`, `paid_at`, `verified_at`, `verified_by`, `rejection_reason`, `user_notes`, `admin_notes`, `created_at`, `updated_at`) VALUES (66, 7, 1, 6, 100000, 0, 100000, '2027-03-01 00:00:00', 'unpaid', 'transfer', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-INSERT INTO `payments` (`id`, `round_id`, `group_id`, `user_id`, `amount`, `penalty_amount`, `total_amount`, `due_date`, `payment_status`, `payment_method`, `proof_image`, `paid_at`, `verified_at`, `verified_by`, `rejection_reason`, `user_notes`, `admin_notes`, `created_at`, `updated_at`) VALUES (67, 7, 1, 7, 100000, 0, 100000, '2027-03-01 00:00:00', 'unpaid', 'transfer', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-INSERT INTO `payments` (`id`, `round_id`, `group_id`, `user_id`, `amount`, `penalty_amount`, `total_amount`, `due_date`, `payment_status`, `payment_method`, `proof_image`, `paid_at`, `verified_at`, `verified_by`, `rejection_reason`, `user_notes`, `admin_notes`, `created_at`, `updated_at`) VALUES (68, 7, 1, 8, 100000, 0, 100000, '2027-03-01 00:00:00', 'unpaid', 'transfer', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-INSERT INTO `payments` (`id`, `round_id`, `group_id`, `user_id`, `amount`, `penalty_amount`, `total_amount`, `due_date`, `payment_status`, `payment_method`, `proof_image`, `paid_at`, `verified_at`, `verified_by`, `rejection_reason`, `user_notes`, `admin_notes`, `created_at`, `updated_at`) VALUES (69, 7, 1, 9, 100000, 0, 100000, '2027-03-01 00:00:00', 'unpaid', 'transfer', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-INSERT INTO `payments` (`id`, `round_id`, `group_id`, `user_id`, `amount`, `penalty_amount`, `total_amount`, `due_date`, `payment_status`, `payment_method`, `proof_image`, `paid_at`, `verified_at`, `verified_by`, `rejection_reason`, `user_notes`, `admin_notes`, `created_at`, `updated_at`) VALUES (70, 7, 1, 10, 100000, 0, 100000, '2027-03-01 00:00:00', 'unpaid', 'transfer', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-INSERT INTO `payments` (`id`, `round_id`, `group_id`, `user_id`, `amount`, `penalty_amount`, `total_amount`, `due_date`, `payment_status`, `payment_method`, `proof_image`, `paid_at`, `verified_at`, `verified_by`, `rejection_reason`, `user_notes`, `admin_notes`, `created_at`, `updated_at`) VALUES (71, 8, 1, 1, 100000, 0, 100000, '2027-04-01 00:00:00', 'unpaid', 'transfer', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-INSERT INTO `payments` (`id`, `round_id`, `group_id`, `user_id`, `amount`, `penalty_amount`, `total_amount`, `due_date`, `payment_status`, `payment_method`, `proof_image`, `paid_at`, `verified_at`, `verified_by`, `rejection_reason`, `user_notes`, `admin_notes`, `created_at`, `updated_at`) VALUES (72, 8, 1, 2, 100000, 0, 100000, '2027-04-01 00:00:00', 'unpaid', 'transfer', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-INSERT INTO `payments` (`id`, `round_id`, `group_id`, `user_id`, `amount`, `penalty_amount`, `total_amount`, `due_date`, `payment_status`, `payment_method`, `proof_image`, `paid_at`, `verified_at`, `verified_by`, `rejection_reason`, `user_notes`, `admin_notes`, `created_at`, `updated_at`) VALUES (73, 8, 1, 3, 100000, 0, 100000, '2027-04-01 00:00:00', 'unpaid', 'transfer', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-INSERT INTO `payments` (`id`, `round_id`, `group_id`, `user_id`, `amount`, `penalty_amount`, `total_amount`, `due_date`, `payment_status`, `payment_method`, `proof_image`, `paid_at`, `verified_at`, `verified_by`, `rejection_reason`, `user_notes`, `admin_notes`, `created_at`, `updated_at`) VALUES (74, 8, 1, 4, 100000, 0, 100000, '2027-04-01 00:00:00', 'unpaid', 'transfer', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-INSERT INTO `payments` (`id`, `round_id`, `group_id`, `user_id`, `amount`, `penalty_amount`, `total_amount`, `due_date`, `payment_status`, `payment_method`, `proof_image`, `paid_at`, `verified_at`, `verified_by`, `rejection_reason`, `user_notes`, `admin_notes`, `created_at`, `updated_at`) VALUES (75, 8, 1, 5, 100000, 0, 100000, '2027-04-01 00:00:00', 'unpaid', 'transfer', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-INSERT INTO `payments` (`id`, `round_id`, `group_id`, `user_id`, `amount`, `penalty_amount`, `total_amount`, `due_date`, `payment_status`, `payment_method`, `proof_image`, `paid_at`, `verified_at`, `verified_by`, `rejection_reason`, `user_notes`, `admin_notes`, `created_at`, `updated_at`) VALUES (76, 8, 1, 6, 100000, 0, 100000, '2027-04-01 00:00:00', 'unpaid', 'transfer', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-INSERT INTO `payments` (`id`, `round_id`, `group_id`, `user_id`, `amount`, `penalty_amount`, `total_amount`, `due_date`, `payment_status`, `payment_method`, `proof_image`, `paid_at`, `verified_at`, `verified_by`, `rejection_reason`, `user_notes`, `admin_notes`, `created_at`, `updated_at`) VALUES (77, 8, 1, 7, 100000, 0, 100000, '2027-04-01 00:00:00', 'unpaid', 'transfer', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-INSERT INTO `payments` (`id`, `round_id`, `group_id`, `user_id`, `amount`, `penalty_amount`, `total_amount`, `due_date`, `payment_status`, `payment_method`, `proof_image`, `paid_at`, `verified_at`, `verified_by`, `rejection_reason`, `user_notes`, `admin_notes`, `created_at`, `updated_at`) VALUES (78, 8, 1, 8, 100000, 0, 100000, '2027-04-01 00:00:00', 'unpaid', 'transfer', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-INSERT INTO `payments` (`id`, `round_id`, `group_id`, `user_id`, `amount`, `penalty_amount`, `total_amount`, `due_date`, `payment_status`, `payment_method`, `proof_image`, `paid_at`, `verified_at`, `verified_by`, `rejection_reason`, `user_notes`, `admin_notes`, `created_at`, `updated_at`) VALUES (79, 8, 1, 9, 100000, 0, 100000, '2027-04-01 00:00:00', 'unpaid', 'transfer', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-INSERT INTO `payments` (`id`, `round_id`, `group_id`, `user_id`, `amount`, `penalty_amount`, `total_amount`, `due_date`, `payment_status`, `payment_method`, `proof_image`, `paid_at`, `verified_at`, `verified_by`, `rejection_reason`, `user_notes`, `admin_notes`, `created_at`, `updated_at`) VALUES (80, 8, 1, 10, 100000, 0, 100000, '2027-04-01 00:00:00', 'unpaid', 'transfer', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-INSERT INTO `payments` (`id`, `round_id`, `group_id`, `user_id`, `amount`, `penalty_amount`, `total_amount`, `due_date`, `payment_status`, `payment_method`, `proof_image`, `paid_at`, `verified_at`, `verified_by`, `rejection_reason`, `user_notes`, `admin_notes`, `created_at`, `updated_at`) VALUES (81, 9, 1, 1, 100000, 0, 100000, '2027-05-01 00:00:00', 'unpaid', 'transfer', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-INSERT INTO `payments` (`id`, `round_id`, `group_id`, `user_id`, `amount`, `penalty_amount`, `total_amount`, `due_date`, `payment_status`, `payment_method`, `proof_image`, `paid_at`, `verified_at`, `verified_by`, `rejection_reason`, `user_notes`, `admin_notes`, `created_at`, `updated_at`) VALUES (82, 9, 1, 2, 100000, 0, 100000, '2027-05-01 00:00:00', 'unpaid', 'transfer', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-INSERT INTO `payments` (`id`, `round_id`, `group_id`, `user_id`, `amount`, `penalty_amount`, `total_amount`, `due_date`, `payment_status`, `payment_method`, `proof_image`, `paid_at`, `verified_at`, `verified_by`, `rejection_reason`, `user_notes`, `admin_notes`, `created_at`, `updated_at`) VALUES (83, 9, 1, 3, 100000, 0, 100000, '2027-05-01 00:00:00', 'unpaid', 'transfer', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-INSERT INTO `payments` (`id`, `round_id`, `group_id`, `user_id`, `amount`, `penalty_amount`, `total_amount`, `due_date`, `payment_status`, `payment_method`, `proof_image`, `paid_at`, `verified_at`, `verified_by`, `rejection_reason`, `user_notes`, `admin_notes`, `created_at`, `updated_at`) VALUES (84, 9, 1, 4, 100000, 0, 100000, '2027-05-01 00:00:00', 'unpaid', 'transfer', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-INSERT INTO `payments` (`id`, `round_id`, `group_id`, `user_id`, `amount`, `penalty_amount`, `total_amount`, `due_date`, `payment_status`, `payment_method`, `proof_image`, `paid_at`, `verified_at`, `verified_by`, `rejection_reason`, `user_notes`, `admin_notes`, `created_at`, `updated_at`) VALUES (85, 9, 1, 5, 100000, 0, 100000, '2027-05-01 00:00:00', 'unpaid', 'transfer', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-INSERT INTO `payments` (`id`, `round_id`, `group_id`, `user_id`, `amount`, `penalty_amount`, `total_amount`, `due_date`, `payment_status`, `payment_method`, `proof_image`, `paid_at`, `verified_at`, `verified_by`, `rejection_reason`, `user_notes`, `admin_notes`, `created_at`, `updated_at`) VALUES (86, 9, 1, 6, 100000, 0, 100000, '2027-05-01 00:00:00', 'unpaid', 'transfer', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-INSERT INTO `payments` (`id`, `round_id`, `group_id`, `user_id`, `amount`, `penalty_amount`, `total_amount`, `due_date`, `payment_status`, `payment_method`, `proof_image`, `paid_at`, `verified_at`, `verified_by`, `rejection_reason`, `user_notes`, `admin_notes`, `created_at`, `updated_at`) VALUES (87, 9, 1, 7, 100000, 0, 100000, '2027-05-01 00:00:00', 'unpaid', 'transfer', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-INSERT INTO `payments` (`id`, `round_id`, `group_id`, `user_id`, `amount`, `penalty_amount`, `total_amount`, `due_date`, `payment_status`, `payment_method`, `proof_image`, `paid_at`, `verified_at`, `verified_by`, `rejection_reason`, `user_notes`, `admin_notes`, `created_at`, `updated_at`) VALUES (88, 9, 1, 8, 100000, 0, 100000, '2027-05-01 00:00:00', 'unpaid', 'transfer', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-INSERT INTO `payments` (`id`, `round_id`, `group_id`, `user_id`, `amount`, `penalty_amount`, `total_amount`, `due_date`, `payment_status`, `payment_method`, `proof_image`, `paid_at`, `verified_at`, `verified_by`, `rejection_reason`, `user_notes`, `admin_notes`, `created_at`, `updated_at`) VALUES (89, 9, 1, 9, 100000, 0, 100000, '2027-05-01 00:00:00', 'unpaid', 'transfer', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-INSERT INTO `payments` (`id`, `round_id`, `group_id`, `user_id`, `amount`, `penalty_amount`, `total_amount`, `due_date`, `payment_status`, `payment_method`, `proof_image`, `paid_at`, `verified_at`, `verified_by`, `rejection_reason`, `user_notes`, `admin_notes`, `created_at`, `updated_at`) VALUES (90, 9, 1, 10, 100000, 0, 100000, '2027-05-01 00:00:00', 'unpaid', 'transfer', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-INSERT INTO `payments` (`id`, `round_id`, `group_id`, `user_id`, `amount`, `penalty_amount`, `total_amount`, `due_date`, `payment_status`, `payment_method`, `proof_image`, `paid_at`, `verified_at`, `verified_by`, `rejection_reason`, `user_notes`, `admin_notes`, `created_at`, `updated_at`) VALUES (91, 10, 1, 1, 100000, 0, 100000, '2027-06-01 00:00:00', 'unpaid', 'transfer', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-INSERT INTO `payments` (`id`, `round_id`, `group_id`, `user_id`, `amount`, `penalty_amount`, `total_amount`, `due_date`, `payment_status`, `payment_method`, `proof_image`, `paid_at`, `verified_at`, `verified_by`, `rejection_reason`, `user_notes`, `admin_notes`, `created_at`, `updated_at`) VALUES (92, 10, 1, 2, 100000, 0, 100000, '2027-06-01 00:00:00', 'unpaid', 'transfer', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-INSERT INTO `payments` (`id`, `round_id`, `group_id`, `user_id`, `amount`, `penalty_amount`, `total_amount`, `due_date`, `payment_status`, `payment_method`, `proof_image`, `paid_at`, `verified_at`, `verified_by`, `rejection_reason`, `user_notes`, `admin_notes`, `created_at`, `updated_at`) VALUES (93, 10, 1, 3, 100000, 0, 100000, '2027-06-01 00:00:00', 'unpaid', 'transfer', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-INSERT INTO `payments` (`id`, `round_id`, `group_id`, `user_id`, `amount`, `penalty_amount`, `total_amount`, `due_date`, `payment_status`, `payment_method`, `proof_image`, `paid_at`, `verified_at`, `verified_by`, `rejection_reason`, `user_notes`, `admin_notes`, `created_at`, `updated_at`) VALUES (94, 10, 1, 4, 100000, 0, 100000, '2027-06-01 00:00:00', 'unpaid', 'transfer', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-INSERT INTO `payments` (`id`, `round_id`, `group_id`, `user_id`, `amount`, `penalty_amount`, `total_amount`, `due_date`, `payment_status`, `payment_method`, `proof_image`, `paid_at`, `verified_at`, `verified_by`, `rejection_reason`, `user_notes`, `admin_notes`, `created_at`, `updated_at`) VALUES (95, 10, 1, 5, 100000, 0, 100000, '2027-06-01 00:00:00', 'unpaid', 'transfer', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-INSERT INTO `payments` (`id`, `round_id`, `group_id`, `user_id`, `amount`, `penalty_amount`, `total_amount`, `due_date`, `payment_status`, `payment_method`, `proof_image`, `paid_at`, `verified_at`, `verified_by`, `rejection_reason`, `user_notes`, `admin_notes`, `created_at`, `updated_at`) VALUES (96, 10, 1, 6, 100000, 0, 100000, '2027-06-01 00:00:00', 'unpaid', 'transfer', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-INSERT INTO `payments` (`id`, `round_id`, `group_id`, `user_id`, `amount`, `penalty_amount`, `total_amount`, `due_date`, `payment_status`, `payment_method`, `proof_image`, `paid_at`, `verified_at`, `verified_by`, `rejection_reason`, `user_notes`, `admin_notes`, `created_at`, `updated_at`) VALUES (97, 10, 1, 7, 100000, 0, 100000, '2027-06-01 00:00:00', 'unpaid', 'transfer', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-INSERT INTO `payments` (`id`, `round_id`, `group_id`, `user_id`, `amount`, `penalty_amount`, `total_amount`, `due_date`, `payment_status`, `payment_method`, `proof_image`, `paid_at`, `verified_at`, `verified_by`, `rejection_reason`, `user_notes`, `admin_notes`, `created_at`, `updated_at`) VALUES (98, 10, 1, 8, 100000, 0, 100000, '2027-06-01 00:00:00', 'unpaid', 'transfer', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-INSERT INTO `payments` (`id`, `round_id`, `group_id`, `user_id`, `amount`, `penalty_amount`, `total_amount`, `due_date`, `payment_status`, `payment_method`, `proof_image`, `paid_at`, `verified_at`, `verified_by`, `rejection_reason`, `user_notes`, `admin_notes`, `created_at`, `updated_at`) VALUES (99, 10, 1, 9, 100000, 0, 100000, '2027-06-01 00:00:00', 'unpaid', 'transfer', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-INSERT INTO `payments` (`id`, `round_id`, `group_id`, `user_id`, `amount`, `penalty_amount`, `total_amount`, `due_date`, `payment_status`, `payment_method`, `proof_image`, `paid_at`, `verified_at`, `verified_by`, `rejection_reason`, `user_notes`, `admin_notes`, `created_at`, `updated_at`) VALUES (100, 10, 1, 10, 100000, 0, 100000, '2027-06-01 00:00:00', 'unpaid', 'transfer', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-INSERT INTO `payments` (`id`, `round_id`, `group_id`, `user_id`, `amount`, `penalty_amount`, `total_amount`, `due_date`, `payment_status`, `payment_method`, `proof_image`, `paid_at`, `verified_at`, `verified_by`, `rejection_reason`, `user_notes`, `admin_notes`, `created_at`, `updated_at`) VALUES (101, 11, 2, 1, 50000, 0, 50000, '2026-10-01 00:00:00', 'unpaid', 'transfer', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-INSERT INTO `payments` (`id`, `round_id`, `group_id`, `user_id`, `amount`, `penalty_amount`, `total_amount`, `due_date`, `payment_status`, `payment_method`, `proof_image`, `paid_at`, `verified_at`, `verified_by`, `rejection_reason`, `user_notes`, `admin_notes`, `created_at`, `updated_at`) VALUES (102, 11, 2, 2, 50000, 0, 50000, '2026-10-01 00:00:00', 'unpaid', 'transfer', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-INSERT INTO `payments` (`id`, `round_id`, `group_id`, `user_id`, `amount`, `penalty_amount`, `total_amount`, `due_date`, `payment_status`, `payment_method`, `proof_image`, `paid_at`, `verified_at`, `verified_by`, `rejection_reason`, `user_notes`, `admin_notes`, `created_at`, `updated_at`) VALUES (103, 11, 2, 3, 50000, 0, 50000, '2026-10-01 00:00:00', 'unpaid', 'transfer', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-INSERT INTO `payments` (`id`, `round_id`, `group_id`, `user_id`, `amount`, `penalty_amount`, `total_amount`, `due_date`, `payment_status`, `payment_method`, `proof_image`, `paid_at`, `verified_at`, `verified_by`, `rejection_reason`, `user_notes`, `admin_notes`, `created_at`, `updated_at`) VALUES (104, 11, 2, 4, 50000, 0, 50000, '2026-10-01 00:00:00', 'unpaid', 'transfer', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-INSERT INTO `payments` (`id`, `round_id`, `group_id`, `user_id`, `amount`, `penalty_amount`, `total_amount`, `due_date`, `payment_status`, `payment_method`, `proof_image`, `paid_at`, `verified_at`, `verified_by`, `rejection_reason`, `user_notes`, `admin_notes`, `created_at`, `updated_at`) VALUES (105, 11, 2, 5, 50000, 0, 50000, '2026-10-01 00:00:00', 'unpaid', 'transfer', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-INSERT INTO `payments` (`id`, `round_id`, `group_id`, `user_id`, `amount`, `penalty_amount`, `total_amount`, `due_date`, `payment_status`, `payment_method`, `proof_image`, `paid_at`, `verified_at`, `verified_by`, `rejection_reason`, `user_notes`, `admin_notes`, `created_at`, `updated_at`) VALUES (106, 11, 2, 6, 50000, 0, 50000, '2026-10-01 00:00:00', 'unpaid', 'transfer', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-INSERT INTO `payments` (`id`, `round_id`, `group_id`, `user_id`, `amount`, `penalty_amount`, `total_amount`, `due_date`, `payment_status`, `payment_method`, `proof_image`, `paid_at`, `verified_at`, `verified_by`, `rejection_reason`, `user_notes`, `admin_notes`, `created_at`, `updated_at`) VALUES (107, 12, 2, 1, 50000, 0, 50000, '2026-11-01 00:00:00', 'unpaid', 'transfer', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-INSERT INTO `payments` (`id`, `round_id`, `group_id`, `user_id`, `amount`, `penalty_amount`, `total_amount`, `due_date`, `payment_status`, `payment_method`, `proof_image`, `paid_at`, `verified_at`, `verified_by`, `rejection_reason`, `user_notes`, `admin_notes`, `created_at`, `updated_at`) VALUES (108, 12, 2, 2, 50000, 0, 50000, '2026-11-01 00:00:00', 'unpaid', 'transfer', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-INSERT INTO `payments` (`id`, `round_id`, `group_id`, `user_id`, `amount`, `penalty_amount`, `total_amount`, `due_date`, `payment_status`, `payment_method`, `proof_image`, `paid_at`, `verified_at`, `verified_by`, `rejection_reason`, `user_notes`, `admin_notes`, `created_at`, `updated_at`) VALUES (109, 12, 2, 3, 50000, 0, 50000, '2026-11-01 00:00:00', 'unpaid', 'transfer', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-INSERT INTO `payments` (`id`, `round_id`, `group_id`, `user_id`, `amount`, `penalty_amount`, `total_amount`, `due_date`, `payment_status`, `payment_method`, `proof_image`, `paid_at`, `verified_at`, `verified_by`, `rejection_reason`, `user_notes`, `admin_notes`, `created_at`, `updated_at`) VALUES (110, 12, 2, 4, 50000, 0, 50000, '2026-11-01 00:00:00', 'unpaid', 'transfer', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-INSERT INTO `payments` (`id`, `round_id`, `group_id`, `user_id`, `amount`, `penalty_amount`, `total_amount`, `due_date`, `payment_status`, `payment_method`, `proof_image`, `paid_at`, `verified_at`, `verified_by`, `rejection_reason`, `user_notes`, `admin_notes`, `created_at`, `updated_at`) VALUES (111, 12, 2, 5, 50000, 0, 50000, '2026-11-01 00:00:00', 'unpaid', 'transfer', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-INSERT INTO `payments` (`id`, `round_id`, `group_id`, `user_id`, `amount`, `penalty_amount`, `total_amount`, `due_date`, `payment_status`, `payment_method`, `proof_image`, `paid_at`, `verified_at`, `verified_by`, `rejection_reason`, `user_notes`, `admin_notes`, `created_at`, `updated_at`) VALUES (112, 12, 2, 6, 50000, 0, 50000, '2026-11-01 00:00:00', 'unpaid', 'transfer', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-INSERT INTO `payments` (`id`, `round_id`, `group_id`, `user_id`, `amount`, `penalty_amount`, `total_amount`, `due_date`, `payment_status`, `payment_method`, `proof_image`, `paid_at`, `verified_at`, `verified_by`, `rejection_reason`, `user_notes`, `admin_notes`, `created_at`, `updated_at`) VALUES (113, 13, 2, 1, 50000, 0, 50000, '2026-12-01 00:00:00', 'unpaid', 'transfer', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-INSERT INTO `payments` (`id`, `round_id`, `group_id`, `user_id`, `amount`, `penalty_amount`, `total_amount`, `due_date`, `payment_status`, `payment_method`, `proof_image`, `paid_at`, `verified_at`, `verified_by`, `rejection_reason`, `user_notes`, `admin_notes`, `created_at`, `updated_at`) VALUES (114, 13, 2, 2, 50000, 0, 50000, '2026-12-01 00:00:00', 'unpaid', 'transfer', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-INSERT INTO `payments` (`id`, `round_id`, `group_id`, `user_id`, `amount`, `penalty_amount`, `total_amount`, `due_date`, `payment_status`, `payment_method`, `proof_image`, `paid_at`, `verified_at`, `verified_by`, `rejection_reason`, `user_notes`, `admin_notes`, `created_at`, `updated_at`) VALUES (115, 13, 2, 3, 50000, 0, 50000, '2026-12-01 00:00:00', 'unpaid', 'transfer', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-INSERT INTO `payments` (`id`, `round_id`, `group_id`, `user_id`, `amount`, `penalty_amount`, `total_amount`, `due_date`, `payment_status`, `payment_method`, `proof_image`, `paid_at`, `verified_at`, `verified_by`, `rejection_reason`, `user_notes`, `admin_notes`, `created_at`, `updated_at`) VALUES (116, 13, 2, 4, 50000, 0, 50000, '2026-12-01 00:00:00', 'unpaid', 'transfer', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-INSERT INTO `payments` (`id`, `round_id`, `group_id`, `user_id`, `amount`, `penalty_amount`, `total_amount`, `due_date`, `payment_status`, `payment_method`, `proof_image`, `paid_at`, `verified_at`, `verified_by`, `rejection_reason`, `user_notes`, `admin_notes`, `created_at`, `updated_at`) VALUES (117, 13, 2, 5, 50000, 0, 50000, '2026-12-01 00:00:00', 'unpaid', 'transfer', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-INSERT INTO `payments` (`id`, `round_id`, `group_id`, `user_id`, `amount`, `penalty_amount`, `total_amount`, `due_date`, `payment_status`, `payment_method`, `proof_image`, `paid_at`, `verified_at`, `verified_by`, `rejection_reason`, `user_notes`, `admin_notes`, `created_at`, `updated_at`) VALUES (118, 13, 2, 6, 50000, 0, 50000, '2026-12-01 00:00:00', 'unpaid', 'transfer', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-INSERT INTO `payments` (`id`, `round_id`, `group_id`, `user_id`, `amount`, `penalty_amount`, `total_amount`, `due_date`, `payment_status`, `payment_method`, `proof_image`, `paid_at`, `verified_at`, `verified_by`, `rejection_reason`, `user_notes`, `admin_notes`, `created_at`, `updated_at`) VALUES (119, 14, 2, 1, 50000, 0, 50000, '2027-01-01 00:00:00', 'unpaid', 'transfer', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-INSERT INTO `payments` (`id`, `round_id`, `group_id`, `user_id`, `amount`, `penalty_amount`, `total_amount`, `due_date`, `payment_status`, `payment_method`, `proof_image`, `paid_at`, `verified_at`, `verified_by`, `rejection_reason`, `user_notes`, `admin_notes`, `created_at`, `updated_at`) VALUES (120, 14, 2, 2, 50000, 0, 50000, '2027-01-01 00:00:00', 'unpaid', 'transfer', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-INSERT INTO `payments` (`id`, `round_id`, `group_id`, `user_id`, `amount`, `penalty_amount`, `total_amount`, `due_date`, `payment_status`, `payment_method`, `proof_image`, `paid_at`, `verified_at`, `verified_by`, `rejection_reason`, `user_notes`, `admin_notes`, `created_at`, `updated_at`) VALUES (121, 14, 2, 3, 50000, 0, 50000, '2027-01-01 00:00:00', 'unpaid', 'transfer', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-INSERT INTO `payments` (`id`, `round_id`, `group_id`, `user_id`, `amount`, `penalty_amount`, `total_amount`, `due_date`, `payment_status`, `payment_method`, `proof_image`, `paid_at`, `verified_at`, `verified_by`, `rejection_reason`, `user_notes`, `admin_notes`, `created_at`, `updated_at`) VALUES (122, 14, 2, 4, 50000, 0, 50000, '2027-01-01 00:00:00', 'unpaid', 'transfer', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-INSERT INTO `payments` (`id`, `round_id`, `group_id`, `user_id`, `amount`, `penalty_amount`, `total_amount`, `due_date`, `payment_status`, `payment_method`, `proof_image`, `paid_at`, `verified_at`, `verified_by`, `rejection_reason`, `user_notes`, `admin_notes`, `created_at`, `updated_at`) VALUES (123, 14, 2, 5, 50000, 0, 50000, '2027-01-01 00:00:00', 'unpaid', 'transfer', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-INSERT INTO `payments` (`id`, `round_id`, `group_id`, `user_id`, `amount`, `penalty_amount`, `total_amount`, `due_date`, `payment_status`, `payment_method`, `proof_image`, `paid_at`, `verified_at`, `verified_by`, `rejection_reason`, `user_notes`, `admin_notes`, `created_at`, `updated_at`) VALUES (124, 14, 2, 6, 50000, 0, 50000, '2027-01-01 00:00:00', 'unpaid', 'transfer', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-INSERT INTO `payments` (`id`, `round_id`, `group_id`, `user_id`, `amount`, `penalty_amount`, `total_amount`, `due_date`, `payment_status`, `payment_method`, `proof_image`, `paid_at`, `verified_at`, `verified_by`, `rejection_reason`, `user_notes`, `admin_notes`, `created_at`, `updated_at`) VALUES (125, 15, 2, 1, 50000, 0, 50000, '2027-02-01 00:00:00', 'unpaid', 'transfer', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-INSERT INTO `payments` (`id`, `round_id`, `group_id`, `user_id`, `amount`, `penalty_amount`, `total_amount`, `due_date`, `payment_status`, `payment_method`, `proof_image`, `paid_at`, `verified_at`, `verified_by`, `rejection_reason`, `user_notes`, `admin_notes`, `created_at`, `updated_at`) VALUES (126, 15, 2, 2, 50000, 0, 50000, '2027-02-01 00:00:00', 'unpaid', 'transfer', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-INSERT INTO `payments` (`id`, `round_id`, `group_id`, `user_id`, `amount`, `penalty_amount`, `total_amount`, `due_date`, `payment_status`, `payment_method`, `proof_image`, `paid_at`, `verified_at`, `verified_by`, `rejection_reason`, `user_notes`, `admin_notes`, `created_at`, `updated_at`) VALUES (127, 15, 2, 3, 50000, 0, 50000, '2027-02-01 00:00:00', 'unpaid', 'transfer', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-INSERT INTO `payments` (`id`, `round_id`, `group_id`, `user_id`, `amount`, `penalty_amount`, `total_amount`, `due_date`, `payment_status`, `payment_method`, `proof_image`, `paid_at`, `verified_at`, `verified_by`, `rejection_reason`, `user_notes`, `admin_notes`, `created_at`, `updated_at`) VALUES (128, 15, 2, 4, 50000, 0, 50000, '2027-02-01 00:00:00', 'unpaid', 'transfer', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-INSERT INTO `payments` (`id`, `round_id`, `group_id`, `user_id`, `amount`, `penalty_amount`, `total_amount`, `due_date`, `payment_status`, `payment_method`, `proof_image`, `paid_at`, `verified_at`, `verified_by`, `rejection_reason`, `user_notes`, `admin_notes`, `created_at`, `updated_at`) VALUES (129, 15, 2, 5, 50000, 0, 50000, '2027-02-01 00:00:00', 'unpaid', 'transfer', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-INSERT INTO `payments` (`id`, `round_id`, `group_id`, `user_id`, `amount`, `penalty_amount`, `total_amount`, `due_date`, `payment_status`, `payment_method`, `proof_image`, `paid_at`, `verified_at`, `verified_by`, `rejection_reason`, `user_notes`, `admin_notes`, `created_at`, `updated_at`) VALUES (130, 15, 2, 6, 50000, 0, 50000, '2027-02-01 00:00:00', 'unpaid', 'transfer', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-INSERT INTO `payments` (`id`, `round_id`, `group_id`, `user_id`, `amount`, `penalty_amount`, `total_amount`, `due_date`, `payment_status`, `payment_method`, `proof_image`, `paid_at`, `verified_at`, `verified_by`, `rejection_reason`, `user_notes`, `admin_notes`, `created_at`, `updated_at`) VALUES (131, 16, 2, 1, 50000, 0, 50000, '2027-03-01 00:00:00', 'unpaid', 'transfer', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-INSERT INTO `payments` (`id`, `round_id`, `group_id`, `user_id`, `amount`, `penalty_amount`, `total_amount`, `due_date`, `payment_status`, `payment_method`, `proof_image`, `paid_at`, `verified_at`, `verified_by`, `rejection_reason`, `user_notes`, `admin_notes`, `created_at`, `updated_at`) VALUES (132, 16, 2, 2, 50000, 0, 50000, '2027-03-01 00:00:00', 'unpaid', 'transfer', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-INSERT INTO `payments` (`id`, `round_id`, `group_id`, `user_id`, `amount`, `penalty_amount`, `total_amount`, `due_date`, `payment_status`, `payment_method`, `proof_image`, `paid_at`, `verified_at`, `verified_by`, `rejection_reason`, `user_notes`, `admin_notes`, `created_at`, `updated_at`) VALUES (133, 16, 2, 3, 50000, 0, 50000, '2027-03-01 00:00:00', 'unpaid', 'transfer', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-INSERT INTO `payments` (`id`, `round_id`, `group_id`, `user_id`, `amount`, `penalty_amount`, `total_amount`, `due_date`, `payment_status`, `payment_method`, `proof_image`, `paid_at`, `verified_at`, `verified_by`, `rejection_reason`, `user_notes`, `admin_notes`, `created_at`, `updated_at`) VALUES (134, 16, 2, 4, 50000, 0, 50000, '2027-03-01 00:00:00', 'unpaid', 'transfer', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-INSERT INTO `payments` (`id`, `round_id`, `group_id`, `user_id`, `amount`, `penalty_amount`, `total_amount`, `due_date`, `payment_status`, `payment_method`, `proof_image`, `paid_at`, `verified_at`, `verified_by`, `rejection_reason`, `user_notes`, `admin_notes`, `created_at`, `updated_at`) VALUES (135, 16, 2, 5, 50000, 0, 50000, '2027-03-01 00:00:00', 'unpaid', 'transfer', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-INSERT INTO `payments` (`id`, `round_id`, `group_id`, `user_id`, `amount`, `penalty_amount`, `total_amount`, `due_date`, `payment_status`, `payment_method`, `proof_image`, `paid_at`, `verified_at`, `verified_by`, `rejection_reason`, `user_notes`, `admin_notes`, `created_at`, `updated_at`) VALUES (136, 16, 2, 6, 50000, 0, 50000, '2027-03-01 00:00:00', 'unpaid', 'transfer', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-
-DROP TABLE IF EXISTS `notification_logs`;
-CREATE TABLE IF NOT EXISTS `notification_logs` (
-  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `user_id` bigint(20) UNSIGNED NOT NULL,
-  `group_id` bigint(20) UNSIGNED DEFAULT NULL,
-  `round_id` bigint(20) UNSIGNED DEFAULT NULL,
-  `type` varchar(255) NOT NULL,
-  `title` varchar(255) NOT NULL,
-  `message` text NOT NULL,
-  `channel` varchar(255) NOT NULL DEFAULT 'whatsapp',
-  `status` varchar(255) NOT NULL DEFAULT 'sent',
-  `sent_at` timestamp NULL DEFAULT NULL,
-  `whatsapp_link` text DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
+-- -----------------------------------------------
+-- Table: job_batches
+-- -----------------------------------------------
+CREATE TABLE `job_batches` (
+  `id` VARCHAR(255) NOT NULL,
+  `name` VARCHAR(255) NOT NULL,
+  `total_jobs` INT NOT NULL,
+  `pending_jobs` INT NOT NULL,
+  `failed_jobs` INT NOT NULL,
+  `failed_job_ids` LONGTEXT NOT NULL,
+  `options` MEDIUMTEXT NULL DEFAULT NULL,
+  `cancelled_at` INT NULL DEFAULT NULL,
+  `created_at` INT NOT NULL,
+  `finished_at` INT NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-DROP TABLE IF EXISTS `activity_logs`;
-CREATE TABLE IF NOT EXISTS `activity_logs` (
-  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `user_id` bigint(20) UNSIGNED DEFAULT NULL,
-  `action` varchar(255) NOT NULL,
-  `description` text NOT NULL,
-  `ip_address` varchar(45) DEFAULT NULL,
-  `user_agent` text DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
+-- -----------------------------------------------
+-- Table: failed_jobs
+-- -----------------------------------------------
+CREATE TABLE `failed_jobs` (
+  `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `uuid` VARCHAR(255) NOT NULL,
+  `connection` VARCHAR(255) NOT NULL,
+  `queue` VARCHAR(255) NOT NULL,
+  `payload` LONGTEXT NOT NULL,
+  `exception` LONGTEXT NOT NULL,
+  `failed_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `failed_jobs_uuid_unique` (`uuid`),
+  KEY `failed_jobs_connection_queue_failed_at_index` (`connection`, `queue`, `failed_at`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- -----------------------------------------------
+-- Table: arisan_groups
+-- -----------------------------------------------
+CREATE TABLE `arisan_groups` (
+  `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(255) NOT NULL,
+  `slug` VARCHAR(255) NOT NULL,
+  `description` TEXT NULL DEFAULT NULL,
+  `admin_id` BIGINT UNSIGNED NOT NULL,
+  `contribution_amount` DECIMAL(15,2) NOT NULL,
+  `period_type` VARCHAR(255) NOT NULL DEFAULT 'monthly',
+  `max_members` INT NOT NULL,
+  `start_date` DATE NOT NULL,
+  `late_fee_per_day` DECIMAL(15,2) NOT NULL DEFAULT 0.00,
+  `grace_period_days` INT NOT NULL DEFAULT 3,
+  `winner_determination` VARCHAR(255) NOT NULL DEFAULT 'lottery',
+  `only_paid_can_win` TINYINT(1) NOT NULL DEFAULT 1,
+  `bank_name` VARCHAR(255) NULL DEFAULT NULL,
+  `bank_account_no` VARCHAR(255) NULL DEFAULT NULL,
+  `bank_account_name` VARCHAR(255) NULL DEFAULT NULL,
+  `qris_image` VARCHAR(255) NULL DEFAULT NULL,
+  `status` VARCHAR(255) NOT NULL DEFAULT 'draft',
+  `created_at` TIMESTAMP NULL DEFAULT NULL,
+  `updated_at` TIMESTAMP NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `arisan_groups_slug_unique` (`slug`),
+  KEY `arisan_groups_admin_id_foreign` (`admin_id`),
+  CONSTRAINT `arisan_groups_admin_id_foreign` FOREIGN KEY (`admin_id`) REFERENCES `users` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- -----------------------------------------------
+-- Table: arisan_rounds
+-- -----------------------------------------------
+CREATE TABLE `arisan_rounds` (
+  `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `group_id` BIGINT UNSIGNED NOT NULL,
+  `round_number` INT NOT NULL,
+  `due_date` DATE NOT NULL,
+  `draw_date` DATE NOT NULL,
+  `host_user_id` BIGINT UNSIGNED NULL DEFAULT NULL,
+  `host_location` VARCHAR(255) NULL DEFAULT NULL,
+  `winner_user_id` BIGINT UNSIGNED NULL DEFAULT NULL,
+  `winning_amount` DECIMAL(15,2) NULL DEFAULT NULL,
+  `prize_disbursed` TINYINT(1) NOT NULL DEFAULT 0,
+  `disbursed_at` DATETIME NULL DEFAULT NULL,
+  `disbursement_proof` VARCHAR(255) NULL DEFAULT NULL,
+  `disbursement_notes` TEXT NULL DEFAULT NULL,
+  `status` VARCHAR(255) NOT NULL DEFAULT 'pending',
+  `notes` TEXT NULL DEFAULT NULL,
+  `created_at` TIMESTAMP NULL DEFAULT NULL,
+  `updated_at` TIMESTAMP NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `arisan_rounds_group_id_foreign` (`group_id`),
+  KEY `arisan_rounds_host_user_id_foreign` (`host_user_id`),
+  KEY `arisan_rounds_winner_user_id_foreign` (`winner_user_id`),
+  CONSTRAINT `arisan_rounds_group_id_foreign` FOREIGN KEY (`group_id`) REFERENCES `arisan_groups` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `arisan_rounds_host_user_id_foreign` FOREIGN KEY (`host_user_id`) REFERENCES `users` (`id`) ON DELETE SET NULL,
+  CONSTRAINT `arisan_rounds_winner_user_id_foreign` FOREIGN KEY (`winner_user_id`) REFERENCES `users` (`id`) ON DELETE SET NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- -----------------------------------------------
+-- Table: group_members
+-- -----------------------------------------------
+CREATE TABLE `group_members` (
+  `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `group_id` BIGINT UNSIGNED NOT NULL,
+  `user_id` BIGINT UNSIGNED NOT NULL,
+  `join_date` DATE NULL DEFAULT NULL,
+  `fixed_order_number` INT NULL DEFAULT NULL,
+  `has_won` TINYINT(1) NOT NULL DEFAULT 0,
+  `won_round_id` BIGINT UNSIGNED NULL DEFAULT NULL,
+  `notification_channel` VARCHAR(255) NOT NULL DEFAULT 'whatsapp',
+  `is_active` TINYINT(1) NOT NULL DEFAULT 1,
+  `notes` TEXT NULL DEFAULT NULL,
+  `created_at` TIMESTAMP NULL DEFAULT NULL,
+  `updated_at` TIMESTAMP NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `group_members_group_id_user_id_unique` (`group_id`, `user_id`),
+  KEY `group_members_user_id_foreign` (`user_id`),
+  KEY `group_members_won_round_id_foreign` (`won_round_id`),
+  CONSTRAINT `group_members_group_id_foreign` FOREIGN KEY (`group_id`) REFERENCES `arisan_groups` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `group_members_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `group_members_won_round_id_foreign` FOREIGN KEY (`won_round_id`) REFERENCES `arisan_rounds` (`id`) ON DELETE SET NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- -----------------------------------------------
+-- Table: payments
+-- -----------------------------------------------
+CREATE TABLE `payments` (
+  `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `round_id` BIGINT UNSIGNED NOT NULL,
+  `group_id` BIGINT UNSIGNED NOT NULL,
+  `user_id` BIGINT UNSIGNED NOT NULL,
+  `amount` DECIMAL(15,2) NOT NULL,
+  `penalty_amount` DECIMAL(15,2) NOT NULL DEFAULT 0.00,
+  `total_amount` DECIMAL(15,2) NOT NULL,
+  `due_date` DATE NOT NULL,
+  `payment_status` VARCHAR(255) NOT NULL DEFAULT 'unpaid',
+  `payment_method` VARCHAR(255) NOT NULL DEFAULT 'transfer',
+  `proof_image` VARCHAR(255) NULL DEFAULT NULL,
+  `paid_at` DATETIME NULL DEFAULT NULL,
+  `verified_at` DATETIME NULL DEFAULT NULL,
+  `verified_by` BIGINT UNSIGNED NULL DEFAULT NULL,
+  `rejection_reason` TEXT NULL DEFAULT NULL,
+  `user_notes` TEXT NULL DEFAULT NULL,
+  `admin_notes` TEXT NULL DEFAULT NULL,
+  `created_at` TIMESTAMP NULL DEFAULT NULL,
+  `updated_at` TIMESTAMP NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `payments_round_id_user_id_unique` (`round_id`, `user_id`),
+  KEY `payments_group_id_foreign` (`group_id`),
+  KEY `payments_user_id_foreign` (`user_id`),
+  KEY `payments_verified_by_foreign` (`verified_by`),
+  CONSTRAINT `payments_round_id_foreign` FOREIGN KEY (`round_id`) REFERENCES `arisan_rounds` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `payments_group_id_foreign` FOREIGN KEY (`group_id`) REFERENCES `arisan_groups` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `payments_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `payments_verified_by_foreign` FOREIGN KEY (`verified_by`) REFERENCES `users` (`id`) ON DELETE SET NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- -----------------------------------------------
+-- Table: notification_logs
+-- -----------------------------------------------
+CREATE TABLE `notification_logs` (
+  `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `user_id` BIGINT UNSIGNED NOT NULL,
+  `group_id` BIGINT UNSIGNED NULL DEFAULT NULL,
+  `round_id` BIGINT UNSIGNED NULL DEFAULT NULL,
+  `type` VARCHAR(255) NOT NULL,
+  `title` VARCHAR(255) NOT NULL,
+  `message` TEXT NOT NULL,
+  `channel` VARCHAR(255) NOT NULL DEFAULT 'whatsapp',
+  `status` VARCHAR(255) NOT NULL DEFAULT 'sent',
+  `sent_at` DATETIME NULL DEFAULT NULL,
+  `read_at` DATETIME NULL DEFAULT NULL,
+  `whatsapp_link` TEXT NULL DEFAULT NULL,
+  `created_at` TIMESTAMP NULL DEFAULT NULL,
+  `updated_at` TIMESTAMP NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `notification_logs_user_id_foreign` (`user_id`),
+  KEY `notification_logs_group_id_foreign` (`group_id`),
+  KEY `notification_logs_round_id_foreign` (`round_id`),
+  CONSTRAINT `notification_logs_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `notification_logs_group_id_foreign` FOREIGN KEY (`group_id`) REFERENCES `arisan_groups` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `notification_logs_round_id_foreign` FOREIGN KEY (`round_id`) REFERENCES `arisan_rounds` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- -----------------------------------------------
+-- Table: activity_logs
+-- -----------------------------------------------
+CREATE TABLE `activity_logs` (
+  `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `user_id` BIGINT UNSIGNED NULL DEFAULT NULL,
+  `action` VARCHAR(255) NOT NULL,
+  `description` TEXT NOT NULL,
+  `ip_address` VARCHAR(255) NULL DEFAULT NULL,
+  `user_agent` TEXT NULL DEFAULT NULL,
+  `created_at` TIMESTAMP NULL DEFAULT NULL,
+  `updated_at` TIMESTAMP NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `activity_logs_user_id_foreign` (`user_id`),
+  CONSTRAINT `activity_logs_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE SET NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- -----------------------------------------------
+-- Table: migrations (Laravel internal)
+-- -----------------------------------------------
+CREATE TABLE `migrations` (
+  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `migration` VARCHAR(255) NOT NULL,
+  `batch` INT NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-INSERT INTO `activity_logs` (`id`, `user_id`, `action`, `description`, `ip_address`, `user_agent`, `created_at`, `updated_at`) VALUES (1, NULL, 'generate_jadwal', 'Membuat 10 jadwal putaran arisan untuk kelompok Arisan Guyub Rukun Melati RW 03', '127.0.0.1', 'Symfony', '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-INSERT INTO `activity_logs` (`id`, `user_id`, `action`, `description`, `ip_address`, `user_agent`, `created_at`, `updated_at`) VALUES (2, NULL, 'generate_jadwal', 'Membuat 6 jadwal putaran arisan untuk kelompok Arisan Mawar Cantik PKK RT 01', '127.0.0.1', 'Symfony', '2026-10-02 13:14:20', '2026-10-02 13:14:20');
-INSERT INTO `activity_logs` (`id`, `user_id`, `action`, `description`, `ip_address`, `user_agent`, `created_at`, `updated_at`) VALUES (3, 1, 'inisialisasi', 'Sistem Arisan PKK KarangKedawung berhasil dipasang & diinisialisasi.', '127.0.0.1', 'Symfony', '2026-10-02 13:14:20', '2026-10-02 13:14:20');
+-- -----------------------------------------------
+-- Insert migration records
+-- -----------------------------------------------
+INSERT INTO `migrations` (`migration`, `batch`) VALUES
+('0001_01_01_000000_create_users_table', 1),
+('0001_01_01_000001_create_cache_table', 1),
+('0001_01_01_000002_create_jobs_table', 1),
+('2026_10_02_000001_create_arisan_groups_table', 1),
+('2026_10_02_000002_create_arisan_rounds_table', 1),
+('2026_10_02_000003_create_group_members_table', 1),
+('2026_10_02_000004_create_payments_table', 1),
+('2026_10_02_000005_create_notification_logs_table', 1),
+('2026_10_02_000006_create_activity_logs_table', 1);
 
-COMMIT;
-SET FOREIGN_KEY_CHECKS=1;
+-- -----------------------------------------------
+-- Insert default admin user
+-- Password: password (bcrypt hash)
+-- -----------------------------------------------
+INSERT INTO `users` (`id`, `name`, `email`, `phone`, `role`, `address`, `avatar`, `is_active`, `password`, `created_at`, `updated_at`) VALUES
+(1, 'Admin PKK', 'admin@arisanku.rf.gd', '08123456789', 'admin', 'Karang Kedawung', NULL, 1, '$2y$12$LQv3c1yqBo9SkvXS1GbkCOZ/4hS5bYNWek.oPx1tVaFuUzVwMKnOe', NOW(), NOW());
+
+SET FOREIGN_KEY_CHECKS = 1;
