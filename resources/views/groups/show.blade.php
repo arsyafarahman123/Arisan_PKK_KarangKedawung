@@ -14,8 +14,17 @@
             </a>
             <div class="flex items-center gap-2.5">
                 <h1 class="text-2xl font-extrabold text-slate-900 tracking-tight">{{ $group->name }}</h1>
-                <span class="px-2.5 py-0.5 rounded-full text-xs font-bold {{ $group->status === 'active' ? 'bg-emerald-100 text-emerald-800' : ($group->status === 'completed' ? 'bg-purple-100 text-purple-800' : 'bg-slate-100 text-slate-700') }}">
-                    {{ $group->status === 'active' ? '🟢 Sedang Berjalan' : ($group->status === 'completed' ? '🏆 Selesai' : '📝 Belum Mulai') }}
+                <span class="px-2.5 py-0.5 rounded-full text-xs font-bold flex items-center gap-1 {{ $group->status === 'active' ? 'bg-emerald-100 text-emerald-800' : ($group->status === 'completed' ? 'bg-purple-100 text-purple-800' : 'bg-slate-100 text-slate-700') }}">
+                    @if($group->status === 'active')
+                        <i class="fa-solid fa-circle text-[6px] text-emerald-600"></i>
+                        <span>Sedang Berjalan</span>
+                    @elseif($group->status === 'completed')
+                        <i class="fa-solid fa-trophy text-[10px] text-purple-700"></i>
+                        <span>Selesai</span>
+                    @else
+                        <i class="fa-solid fa-file-pen text-[10px] text-slate-600"></i>
+                        <span>Belum Mulai</span>
+                    @endif
                 </span>
             </div>
             <p class="text-xs text-slate-500 mt-1">{{ $group->description ?? 'Arisan rutin PKK KarangKedawung' }}</p>

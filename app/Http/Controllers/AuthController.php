@@ -49,7 +49,7 @@ class AuthController extends Controller
 
             ActivityLog::log('login', "User {$user->name} berhasil masuk ke sistem.", $user->id);
 
-            return redirect()->intended(route('dashboard'))->with('success', "Selamat datang kembali, Ibu {$user->name}! 🌸");
+            return redirect()->intended(route('dashboard'))->with('success', "Selamat datang kembali, Ibu {$user->name}.");
         }
 
         return back()->withErrors([
@@ -68,7 +68,7 @@ class AuthController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect()->route('login')->with('success', 'Ibu telah berhasil keluar. Sampai jumpa lagi! ✨');
+        return redirect()->route('login')->with('success', 'Anda telah berhasil keluar dari sistem.');
     }
 
     public function profile()

@@ -362,7 +362,7 @@
                 <span>•</span>
                 <span>Sistem Arisan Digital & Guyub Rukun</span>
             </div>
-            <p class="text-slate-400">Dibuat dengan ❤️ untuk Ibu-Ibu PKK KarangKedawung</p>
+            <p class="text-slate-400 flex items-center gap-1.5"><i class="fa-solid fa-shield-halved text-emerald-600"></i> Sistem Informasi PKK KarangKedawung</p>
         </div>
     </footer>
 

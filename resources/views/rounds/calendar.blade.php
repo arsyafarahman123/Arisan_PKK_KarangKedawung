@@ -107,11 +107,11 @@
                         @foreach($dayEvents as $ev)
                             @if($ev['type'] === 'due')
                                 <a href="{{ route('rounds.show', $ev['round']) }}" class="block p-1 rounded-lg bg-amber-100/80 hover:bg-amber-200 border border-amber-200 text-[10px] font-bold text-amber-950 truncate transition" title="{{ $ev['title'] }}">
-                                    ⏳ Iuran: {{ $ev['round']->group->name }}
+                                    <i class="fa-regular fa-clock text-amber-700 mr-0.5"></i> Iuran: {{ $ev['round']->group->name }}
                                 </a>
                             @else
                                 <a href="{{ route('draws.index', $ev['round']) }}" class="block p-1 rounded-lg bg-emerald-100/90 hover:bg-emerald-200 border border-emerald-300 text-[10px] font-extrabold text-emerald-950 truncate transition" title="{{ $ev['title'] }}">
-                                    🎲 Kocok: {{ $ev['round']->group->name }}
+                                    <i class="fa-solid fa-dice text-emerald-700 mr-0.5"></i> Kocok: {{ $ev['round']->group->name }}
                                 </a>
                             @endif
                         @endforeach

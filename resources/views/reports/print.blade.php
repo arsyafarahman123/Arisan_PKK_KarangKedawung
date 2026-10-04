@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Laporan Resmi Arisan PKK — {{ $group->name }}</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
         * {
             box-sizing: border-box;
@@ -120,7 +121,7 @@
 <body>
 
     <div class="no-print">
-        <button onclick="window.print()" class="btn-print">🖨️ Cetak Dokumen / Simpan PDF</button>
+        <button onclick="window.print()" class="btn-print"><i class="fa-solid fa-print"></i> Cetak Dokumen / Simpan PDF</button>
     </div>
 
     <div class="page">

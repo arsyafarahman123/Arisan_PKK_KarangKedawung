@@ -43,9 +43,9 @@
                 </select>
 
                 <select name="reminder_type" required class="w-full sm:w-auto px-4 py-2.5 rounded-xl bg-white text-slate-800 text-xs font-bold focus:ring-2 focus:ring-emerald-300 outline-none shadow-sm">
-                    <option value="reminder_h3">⏳ Pengingat H-3 (Jatuh Tempo)</option>
-                    <option value="reminder_h1">⚠️ Pengingat H-1 (Besok Jatuh Tempo)</option>
-                    <option value="reminder_h0">🚨 Pengingat Hari H (Hari Ini)</option>
+                    <option value="reminder_h3">Pengingat H-3 (Jatuh Tempo)</option>
+                    <option value="reminder_h1">Pengingat H-1 (Besok Jatuh Tempo)</option>
+                    <option value="reminder_h0">Pengingat Hari H (Hari Ini)</option>
                 </select>
 
                 <button type="submit" class="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-slate-900 text-white hover:bg-slate-800 text-xs font-black transition shadow-md flex items-center justify-center gap-2 whitespace-nowrap">
@@ -61,17 +61,21 @@
         <a href="{{ route('notifications.index') }}" class="px-3.5 py-1.5 rounded-xl font-bold transition whitespace-nowrap {{ !$type ? 'bg-emerald-600 text-white shadow-sm' : 'bg-white text-slate-600 hover:bg-slate-100 border border-slate-200' }}">
             Semua Pesan ({{ $logs->total() }})
         </a>
-        <a href="{{ route('notifications.index', ['type' => 'reminder_h3']) }}" class="px-3.5 py-1.5 rounded-xl font-bold transition whitespace-nowrap {{ $type === 'reminder_h3' ? 'bg-emerald-600 text-white shadow-sm' : 'bg-white text-slate-600 hover:bg-slate-100 border border-slate-200' }}">
-            ⏳ Pengingat Iuran
+        <a href="{{ route('notifications.index', ['type' => 'reminder_h3']) }}" class="px-3.5 py-1.5 rounded-xl font-bold transition whitespace-nowrap flex items-center gap-1.5 {{ $type === 'reminder_h3' ? 'bg-emerald-600 text-white shadow-sm' : 'bg-white text-slate-600 hover:bg-slate-100 border border-slate-200' }}">
+            <i class="fa-regular fa-clock text-[11px] {{ $type === 'reminder_h3' ? 'text-white' : 'text-slate-500' }}"></i>
+            <span>Pengingat Iuran</span>
         </a>
-        <a href="{{ route('notifications.index', ['type' => 'late_penalty']) }}" class="px-3.5 py-1.5 rounded-xl font-bold transition whitespace-nowrap {{ $type === 'late_penalty' ? 'bg-emerald-600 text-white shadow-sm' : 'bg-white text-slate-600 hover:bg-slate-100 border border-slate-200' }}">
-            ⚠️ Tagihan Telat & Denda
+        <a href="{{ route('notifications.index', ['type' => 'late_penalty']) }}" class="px-3.5 py-1.5 rounded-xl font-bold transition whitespace-nowrap flex items-center gap-1.5 {{ $type === 'late_penalty' ? 'bg-emerald-600 text-white shadow-sm' : 'bg-white text-slate-600 hover:bg-slate-100 border border-slate-200' }}">
+            <i class="fa-solid fa-triangle-exclamation text-[11px] {{ $type === 'late_penalty' ? 'text-white' : 'text-rose-500' }}"></i>
+            <span>Tagihan Telat & Denda</span>
         </a>
-        <a href="{{ route('notifications.index', ['type' => 'payment_verified']) }}" class="px-3.5 py-1.5 rounded-xl font-bold transition whitespace-nowrap {{ $type === 'payment_verified' ? 'bg-emerald-600 text-white shadow-sm' : 'bg-white text-slate-600 hover:bg-slate-100 border border-slate-200' }}">
-            ✅ Konfirmasi Pembayaran
+        <a href="{{ route('notifications.index', ['type' => 'payment_verified']) }}" class="px-3.5 py-1.5 rounded-xl font-bold transition whitespace-nowrap flex items-center gap-1.5 {{ $type === 'payment_verified' ? 'bg-emerald-600 text-white shadow-sm' : 'bg-white text-slate-600 hover:bg-slate-100 border border-slate-200' }}">
+            <i class="fa-solid fa-circle-check text-[11px] {{ $type === 'payment_verified' ? 'text-white' : 'text-emerald-500' }}"></i>
+            <span>Konfirmasi Pembayaran</span>
         </a>
-        <a href="{{ route('notifications.index', ['type' => 'winner_announcement']) }}" class="px-3.5 py-1.5 rounded-xl font-bold transition whitespace-nowrap {{ $type === 'winner_announcement' ? 'bg-emerald-600 text-white shadow-sm' : 'bg-white text-slate-600 hover:bg-slate-100 border border-slate-200' }}">
-            🎉 Pengumuman Pemenang
+        <a href="{{ route('notifications.index', ['type' => 'winner_announcement']) }}" class="px-3.5 py-1.5 rounded-xl font-bold transition whitespace-nowrap flex items-center gap-1.5 {{ $type === 'winner_announcement' ? 'bg-emerald-600 text-white shadow-sm' : 'bg-white text-slate-600 hover:bg-slate-100 border border-slate-200' }}">
+            <i class="fa-solid fa-trophy text-[11px] {{ $type === 'winner_announcement' ? 'text-white' : 'text-amber-500' }}"></i>
+            <span>Pengumuman Pemenang</span>
         </a>
     </div>
 

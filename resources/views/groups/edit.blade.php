@@ -38,9 +38,9 @@
                     <div>
                         <label class="block text-xs font-bold text-slate-700 mb-1">Status Kelompok *</label>
                         <select name="status" required class="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:border-emerald-500 outline-none text-sm font-medium">
-                            <option value="draft" {{ old('status', $group->status) == 'draft' ? 'selected' : '' }}>📝 Belum Mulai (Draft)</option>
-                            <option value="active" {{ old('status', $group->status) == 'active' ? 'selected' : '' }}>🟢 Sedang Berjalan (Aktif)</option>
-                            <option value="completed" {{ old('status', $group->status) == 'completed' ? 'selected' : '' }}>🏆 Selesai</option>
+                            <option value="draft" {{ old('status', $group->status) == 'draft' ? 'selected' : '' }}>Belum Mulai (Draft)</option>
+                            <option value="active" {{ old('status', $group->status) == 'active' ? 'selected' : '' }}>Sedang Berjalan (Aktif)</option>
+                            <option value="completed" {{ old('status', $group->status) == 'completed' ? 'selected' : '' }}>Selesai</option>
                         </select>
                     </div>
 
@@ -86,8 +86,8 @@
                     <div>
                         <label class="block text-xs font-bold text-slate-700 mb-1">Sistem Penentuan Pemenang *</label>
                         <select name="winner_determination" required class="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:border-emerald-500 outline-none text-sm font-medium">
-                            <option value="lottery" {{ old('winner_determination', $group->winner_determination) == 'lottery' ? 'selected' : '' }}>🎲 Pengocokan Acak (Lottery / Wheel)</option>
-                            <option value="fixed_order" {{ old('winner_determination', $group->winner_determination) == 'fixed_order' ? 'selected' : '' }}>🔢 Urutan Tetap</option>
+                            <option value="lottery" {{ old('winner_determination', $group->winner_determination) == 'lottery' ? 'selected' : '' }}>Pengocokan Acak (Undian / Wheel)</option>
+                            <option value="fixed_order" {{ old('winner_determination', $group->winner_determination) == 'fixed_order' ? 'selected' : '' }}>Urutan Tetap</option>
                         </select>
                     </div>
 

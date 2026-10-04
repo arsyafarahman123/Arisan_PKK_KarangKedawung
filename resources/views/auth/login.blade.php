@@ -23,7 +23,7 @@
                 <i class="fa-solid fa-users-rays text-3xl"></i>
             </div>
             <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">Arisan PKK KarangKedawung</h1>
-            <p class="text-sm text-slate-600 mt-1 font-medium">Sistem Arisan Digital yang Ramah, Guyub & Transparan 🌸</p>
+            <p class="text-sm text-slate-600 mt-1 font-medium">Sistem Informasi Pengelolaan Arisan Digital & Transparan</p>
         </div>
 
         <!-- Card Form -->

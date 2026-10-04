@@ -16,7 +16,7 @@
                     <span>Anggota PKK KarangKedawung</span>
                 </span>
                 <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight">
-                    Sugeng Rawuh, Ibu {{ $user->name }}! 🌸
+                    Selamat Datang, Ibu {{ $user->name }}
                 </h1>
                 <p class="text-emerald-50 text-xs sm:text-sm mt-1 max-w-xl leading-relaxed">
                     Halaman personal arisan Ibu. Pantau tagihan, upload bukti pembayaran, dan lihat hasil kocokan dengan mudah.
@@ -49,8 +49,8 @@
                 <div class="w-12 h-12 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center mx-auto mb-2 text-xl">
                     <i class="fa-solid fa-circle-check"></i>
                 </div>
-                <h3 class="text-sm font-bold text-emerald-950">Alhamdulillah, Tidak Ada Tagihan Tertunggak!</h3>
-                <p class="text-xs text-emerald-700 mt-0.5">Semua iuran putaran berjalan telah Ibu lunasi. Terima kasih atas partisipasinya ya Bu! ✨</p>
+                <h3 class="text-sm font-bold text-emerald-950">Tidak Ada Tagihan Tertunggak</h3>
+                <p class="text-xs text-emerald-700 mt-0.5">Semua iuran putaran berjalan telah lunas. Terima kasih atas ketepatan waktu pembayaran Anda.</p>
             </div>
         @else
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -187,7 +187,7 @@
                     <div class="w-12 h-12 rounded-2xl bg-amber-500 text-white flex items-center justify-center text-xl shadow-md shadow-amber-500/30 mb-3">
                         <i class="fa-solid fa-gift"></i>
                     </div>
-                    <h3 class="text-base font-black text-amber-950">Kemenangan Arisan Ibu 🌸</h3>
+                    <h3 class="text-base font-black text-amber-950">Kemenangan Arisan Saya</h3>
                     <p class="text-xs text-amber-800 mt-1 leading-relaxed">
                         Alhamdulillah, nama Ibu telah keluar sebagai pemenang arisan!
                     </p>

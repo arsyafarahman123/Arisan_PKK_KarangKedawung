@@ -20,8 +20,14 @@
         </div>
 
         <div class="flex items-center gap-2">
-            <span class="px-3.5 py-1.5 rounded-full text-xs font-bold {{ $round->status === 'completed' ? 'bg-purple-100 text-purple-800' : 'bg-rose-100 text-rose-800 animate-pulse' }}">
-                {{ $round->status === 'completed' ? '🏆 Pengocokan Selesai' : '🎲 Siap Dikocok' }}
+            <span class="px-3.5 py-1.5 rounded-full text-xs font-bold {{ $round->status === 'completed' ? 'bg-purple-100 text-purple-800' : 'bg-rose-100 text-rose-800 animate-pulse' }} flex items-center gap-1.5">
+                @if($round->status === 'completed')
+                    <i class="fa-solid fa-trophy"></i>
+                    <span>Pengocokan Selesai</span>
+                @else
+                    <i class="fa-solid fa-dice"></i>
+                    <span>Siap Dikocok</span>
+                @endif
             </span>
         </div>
     </div>
@@ -56,8 +62,14 @@
             <div class="max-w-md mx-auto mt-5 p-4 rounded-2xl bg-amber-50/70 border border-amber-200 text-xs text-amber-950 space-y-1">
                 <p>Uang Arisan: <strong class="text-emerald-700 font-black text-sm">Rp {{ number_format($round->winning_amount, 0, ',', '.') }}</strong></p>
                 <p>Status Pencairan: 
-                    <strong class="{{ $round->prize_disbursed ? 'text-emerald-700' : 'text-amber-800' }}">
-                        {{ $round->prize_disbursed ? '✅ Dana Sudah Diserahkan' : '⏳ Menunggu Penyerahan Uang' }}
+                    <strong class="{{ $round->prize_disbursed ? 'text-emerald-700' : 'text-amber-800' }} flex items-center gap-1 inline-flex">
+                        @if($round->prize_disbursed)
+                            <i class="fa-solid fa-circle-check text-emerald-600"></i>
+                            <span>Dana Sudah Diserahkan</span>
+                        @else
+                            <i class="fa-solid fa-clock text-amber-600"></i>
+                            <span>Menunggu Penyerahan Dana</span>
+                        @endif
                     </strong>
                 </p>
                 @if($round->disbursement_notes)
@@ -67,9 +79,9 @@
 
             <!-- Direct WA Congratulations Button -->
             <div class="mt-6 flex flex-wrap items-center justify-center gap-3">
-                <a href="https://wa.me/{{ $round->winner->formatted_phone }}?text={{ rawurlencode("Assalamu'alaikum Ibu {$round->winner->name}, Selamat atas kemenangannya pada Arisan PKK {$group->name} Putaran ke-{$round->round_number}! 🎉💐") }}" target="_blank" class="btn-pkk px-5 py-2.5 rounded-xl font-bold text-xs shadow flex items-center gap-2">
+                <a href="https://wa.me/{{ $round->winner->formatted_phone }}?text={{ rawurlencode("Assalamu'alaikum Ibu {$round->winner->name}, Selamat atas penetapan pemenang pada Arisan PKK {$group->name} Putaran ke-{$round->round_number}.") }}" target="_blank" class="btn-pkk px-5 py-2.5 rounded-xl font-bold text-xs shadow flex items-center gap-2">
                     <i class="fa-brands fa-whatsapp text-base"></i>
-                    <span>Kirim Ucapan Selamat ke WA Pemenang</span>
+                    <span>Kirim Notifikasi WA ke Pemenang</span>
                 </a>
 
                 @if(!$round->prize_disbursed && auth()->user()->isAdmin())
@@ -87,8 +99,11 @@
             <!-- Interactive Spinning Canvas / Wheel (Span 2) -->
             <div class="lg:col-span-2 bg-white rounded-3xl border border-slate-200 shadow-sm p-6 sm:p-8 flex flex-col items-center justify-center text-center">
                 
-                <h3 class="text-base font-bold text-slate-800 mb-1">Roda Keberuntungan Arisan PKK 🌸</h3>
-                <p class="text-xs text-slate-500 mb-6">Klik tombol kocok untuk mengundi pemenang secara acak dan adil</p>
+                <h3 class="text-base font-bold text-slate-800 mb-1 flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-dharmachakra text-emerald-600"></i>
+                    <span>Roda Undian Arisan PKK</span>
+                </h3>
+                <p class="text-xs text-slate-500 mb-6">Klik tombol kocok untuk mengundi pemenang secara acak dan transparan</p>
 
                 <!-- Canvas Roulette Wheel -->
                 <div class="relative flex items-center justify-center mb-6">
@@ -102,7 +117,7 @@
                 <!-- Animated Display of Name during spin -->
                 <div id="spinningNameBox" class="min-h-[48px] flex items-center justify-center mb-4">
                     <span id="spinningNameText" class="text-lg font-extrabold text-slate-700 tracking-wide">
-                        Siap untuk mengocok... ✨
+                        Siap untuk mengundi...
                     </span>
                 </div>
 
@@ -136,8 +151,9 @@
                 </div>
 
                 @if($group->only_paid_can_win)
-                    <p class="text-[10px] text-amber-700 bg-amber-50 p-2 rounded-xl border border-amber-200">
-                        ⚠️ Aturan kelompok: Hanya anggota yang <strong>sudah Lunas</strong> iuran pada putaran ini yang dimasukkan ke roda undian.
+                    <p class="text-[10px] text-amber-800 bg-amber-50 p-2.5 rounded-xl border border-amber-200 flex items-start gap-1.5">
+                        <i class="fa-solid fa-circle-exclamation text-amber-600 mt-0.5"></i>
+                        <span>Aturan kelompok: Hanya anggota yang <strong>sudah Lunas</strong> iuran pada putaran ini yang dimasukkan ke roda undian.</span>
                     </p>
                 @endif
 
@@ -332,7 +348,7 @@
         const arcd = arc * 180 / Math.PI;
         const index = Math.floor((360 - degrees % 360) % 360 / arcd);
         if (candidates[index]) {
-            document.getElementById('spinningNameText').innerText = candidates[index].name + '... ✨';
+            document.getElementById('spinningNameText').innerText = candidates[index].name + '...';
         }
 
         spinTimeout = setTimeout(rotateWheel, 30);
@@ -345,7 +361,7 @@
         const index = Math.floor((360 - degrees % 360) % 360 / arcd);
         const winner = candidates[index];
 
-        document.getElementById('spinningNameText').innerHTML = '🎉 PEMENANG: <strong class="text-rose-600 font-black">' + winner.name + '</strong>';
+        document.getElementById('spinningNameText').innerHTML = 'PEMENANG: <strong class="text-rose-600 font-black">' + winner.name + '</strong>';
 
         // Trigger Confetti!
         confetti({

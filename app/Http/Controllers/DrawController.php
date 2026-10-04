@@ -83,7 +83,7 @@ class DrawController extends Controller
 
             return redirect()->route('draws.index', $round)
                 ->with('winner_modal', true)
-                ->with('success', "🎉 SELAMAT kepada Ibu {$winner->name} terpilih sebagai pemenang arisan putaran ke-{$round->round_number}!");
+                ->with('success', "Selamat kepada Ibu {$winner->name}, terpilih sebagai pemenang arisan putaran ke-{$round->round_number}!");
         } catch (\Exception $e) {
             return back()->with('error', $e->getMessage());
         }

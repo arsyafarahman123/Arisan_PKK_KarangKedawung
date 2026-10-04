@@ -115,8 +115,13 @@
                                 </td>
                                 <td class="py-3.5 px-4 font-bold text-amber-600">Rp {{ number_format($penaltySum, 0, ',', '.') }}</td>
                                 <td class="py-3.5 px-4">
-                                    <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold {{ $round->prize_disbursed ? 'bg-emerald-100 text-emerald-800' : 'bg-slate-100 text-slate-600' }}">
-                                        {{ $round->prize_disbursed ? '✅ Diserahkan' : 'Belum Cair' }}
+                                    <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold flex items-center gap-1 w-max {{ $round->prize_disbursed ? 'bg-emerald-100 text-emerald-800' : 'bg-slate-100 text-slate-600' }}">
+                                        @if($round->prize_disbursed)
+                                            <i class="fa-solid fa-check text-[9px] text-emerald-600"></i>
+                                            <span>Diserahkan</span>
+                                        @else
+                                            <span>Belum Cair</span>
+                                        @endif
                                     </span>
                                 </td>
                             </tr>

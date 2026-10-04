@@ -28,14 +28,17 @@
         <a href="{{ route('groups.index') }}" class="px-4 py-2 rounded-xl text-xs font-bold transition whitespace-nowrap {{ !$status ? 'bg-emerald-600 text-white shadow-sm' : 'bg-white text-slate-600 hover:bg-slate-100 border border-slate-200' }}">
             Semua Kelompok
         </a>
-        <a href="{{ route('groups.index', ['status' => 'active']) }}" class="px-4 py-2 rounded-xl text-xs font-bold transition whitespace-nowrap {{ $status === 'active' ? 'bg-emerald-600 text-white shadow-sm' : 'bg-white text-slate-600 hover:bg-slate-100 border border-slate-200' }}">
-            🟢 Sedang Berjalan
+        <a href="{{ route('groups.index', ['status' => 'active']) }}" class="px-4 py-2 rounded-xl text-xs font-bold transition whitespace-nowrap flex items-center gap-1.5 {{ $status === 'active' ? 'bg-emerald-600 text-white shadow-sm' : 'bg-white text-slate-600 hover:bg-slate-100 border border-slate-200' }}">
+            <i class="fa-solid fa-circle-play text-[11px] {{ $status === 'active' ? 'text-white' : 'text-emerald-600' }}"></i>
+            <span>Sedang Berjalan</span>
         </a>
-        <a href="{{ route('groups.index', ['status' => 'draft']) }}" class="px-4 py-2 rounded-xl text-xs font-bold transition whitespace-nowrap {{ $status === 'draft' ? 'bg-emerald-600 text-white shadow-sm' : 'bg-white text-slate-600 hover:bg-slate-100 border border-slate-200' }}">
-            📝 Belum Mulai (Draft)
+        <a href="{{ route('groups.index', ['status' => 'draft']) }}" class="px-4 py-2 rounded-xl text-xs font-bold transition whitespace-nowrap flex items-center gap-1.5 {{ $status === 'draft' ? 'bg-emerald-600 text-white shadow-sm' : 'bg-white text-slate-600 hover:bg-slate-100 border border-slate-200' }}">
+            <i class="fa-solid fa-file-pen text-[11px] {{ $status === 'draft' ? 'text-white' : 'text-slate-500' }}"></i>
+            <span>Belum Mulai</span>
         </a>
-        <a href="{{ route('groups.index', ['status' => 'completed']) }}" class="px-4 py-2 rounded-xl text-xs font-bold transition whitespace-nowrap {{ $status === 'completed' ? 'bg-emerald-600 text-white shadow-sm' : 'bg-white text-slate-600 hover:bg-slate-100 border border-slate-200' }}">
-            🏆 Selesai
+        <a href="{{ route('groups.index', ['status' => 'completed']) }}" class="px-4 py-2 rounded-xl text-xs font-bold transition whitespace-nowrap flex items-center gap-1.5 {{ $status === 'completed' ? 'bg-emerald-600 text-white shadow-sm' : 'bg-white text-slate-600 hover:bg-slate-100 border border-slate-200' }}">
+            <i class="fa-solid fa-trophy text-[11px] {{ $status === 'completed' ? 'text-white' : 'text-amber-500' }}"></i>
+            <span>Selesai</span>
         </a>
     </div>
 
@@ -52,8 +55,17 @@
                     
                     <!-- Header Badges -->
                     <div class="flex items-center justify-between gap-2 mb-3">
-                        <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold {{ $group->status === 'active' ? 'bg-emerald-100 text-emerald-800' : ($group->status === 'completed' ? 'bg-purple-100 text-purple-800' : 'bg-slate-100 text-slate-700') }}">
-                            {{ $group->status === 'active' ? '🟢 Sedang Berjalan' : ($group->status === 'completed' ? '🏆 Selesai' : '📝 Belum Mulai') }}
+                        <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold flex items-center gap-1 {{ $group->status === 'active' ? 'bg-emerald-100 text-emerald-800' : ($group->status === 'completed' ? 'bg-purple-100 text-purple-800' : 'bg-slate-100 text-slate-700') }}">
+                            @if($group->status === 'active')
+                                <i class="fa-solid fa-circle text-[6px] text-emerald-600"></i>
+                                <span>Sedang Berjalan</span>
+                            @elseif($group->status === 'completed')
+                                <i class="fa-solid fa-trophy text-[9px] text-purple-700"></i>
+                                <span>Selesai</span>
+                            @else
+                                <i class="fa-solid fa-file-pen text-[9px] text-slate-600"></i>
+                                <span>Belum Mulai</span>
+                            @endif
                         </span>
                         <span class="text-[11px] font-bold text-slate-400">
                             {{ $group->period_type === 'monthly' ? 'Bulanan' : ($group->period_type === 'biweekly' ? '2 Mingguan' : 'Mingguan') }}
@@ -82,8 +94,14 @@
                         </div>
                         <div class="flex justify-between">
                             <span class="text-slate-500">Sistem Pemenang:</span>
-                            <span class="font-bold text-slate-700">
-                                {{ $group->winner_determination === 'lottery' ? '🎲 Kocokan Acak' : '🔢 Urutan Tetap' }}
+                            <span class="font-bold text-slate-700 flex items-center gap-1">
+                                @if($group->winner_determination === 'lottery')
+                                    <i class="fa-solid fa-dice text-slate-400"></i>
+                                    <span>Kocokan Acak</span>
+                                @else
+                                    <i class="fa-solid fa-arrow-down-1-9 text-slate-400"></i>
+                                    <span>Urutan Tetap</span>
+                                @endif
                             </span>
                         </div>
                         <div class="flex justify-between">

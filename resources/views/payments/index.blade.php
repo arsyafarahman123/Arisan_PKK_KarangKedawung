@@ -44,10 +44,10 @@
                 <label class="block text-[11px] font-bold text-slate-500 uppercase mb-1">Status Pembayaran</label>
                 <select name="status" onchange="this.form.submit()" class="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs font-semibold focus:border-emerald-500 outline-none">
                     <option value="">-- Semua Status --</option>
-                    <option value="pending_verification" {{ $status === 'pending_verification' ? 'selected' : '' }}>⏳ Menunggu Verifikasi</option>
-                    <option value="unpaid" {{ $status === 'unpaid' ? 'selected' : '' }}>⚪ Belum Bayar</option>
-                    <option value="late" {{ $status === 'late' ? 'selected' : '' }}>🔴 Telat / Ada Denda</option>
-                    <option value="paid" {{ $status === 'paid' ? 'selected' : '' }}>🟢 Lunas</option>
+                    <option value="pending_verification" {{ $status === 'pending_verification' ? 'selected' : '' }}>Menunggu Verifikasi</option>
+                    <option value="unpaid" {{ $status === 'unpaid' ? 'selected' : '' }}>Belum Bayar</option>
+                    <option value="late" {{ $status === 'late' ? 'selected' : '' }}>Telat / Ada Denda</option>
+                    <option value="paid" {{ $status === 'paid' ? 'selected' : '' }}>Lunas</option>
                 </select>
             </div>
 

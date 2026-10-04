@@ -18,7 +18,7 @@
                     <span>{{ \Carbon\Carbon::now()->translatedFormat('l, d F Y') }}</span>
                 </div>
                 <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight">
-                    Sugeng Rawuh, Ibu {{ auth()->user()->name }}! 🌸
+                    Selamat Datang, Ibu {{ auth()->user()->name }}
                 </h1>
                 <p class="text-emerald-100 text-sm mt-1 max-w-xl leading-relaxed">
                     Sistem siap membantu pengelolaan arisan PKK KarangKedawung agar makin tertib, guyub rukun, dan transparan.
@@ -344,7 +344,7 @@
             <div class="bg-white rounded-3xl border border-slate-200 shadow-sm p-6">
                 <h3 class="text-sm font-bold text-slate-800 mb-3 flex items-center gap-2">
                     <i class="fa-solid fa-trophy text-amber-500"></i>
-                    <span>Pemenang Arisan Terbaru 🎊</span>
+                    <span>Pemenang Arisan Terbaru</span>
                 </h3>
 
                 @if($recentWinners->isEmpty())
